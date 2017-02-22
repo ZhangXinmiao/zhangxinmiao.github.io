@@ -1,7 +1,7 @@
 ---
 title: React 性能优化初探
 date: 2017-02-21 23:06:48
-tags:
+tags: react
 ---
 ### 性能指标工具React Perf
 React 官方为我们提供的性能指标工具 Perf (只适用于开发模式)
@@ -9,7 +9,7 @@ React 官方为我们提供的性能指标工具 Perf (只适用于开发模式)
 我们有两种方式使用它
 
 ps:两种方式都需要在项目[Perf](https://facebook.github.io/react/docs/perf.html)插件
-```
+```js
 import Perf from 'react-addons-perf' // ES6
 var Perf = require('react-addons-perf') // ES5 with npm
 var Perf = React.addons.Perf; // ES5 with react-with-addons.js
@@ -27,7 +27,7 @@ var Perf = React.addons.Perf; // ES5 with react-with-addons.js
 
 ### 先看一个例子
 
-```
+```js
 class Son extends React.Component {
   constructor(props) {
     super(props);
@@ -76,7 +76,7 @@ class Dad extends React.Component {
 
 我们可以在React代码中找到shouldComponentUpdate的部分
 
-```
+```js
 shouldComponentUpdate: function(nextProps, nextState) {
   return true;
 }
@@ -88,7 +88,7 @@ shouldComponentUpdate: function(nextProps, nextState) {
 
 继续看代码，找到执行 props 和 state 对比的地方
 
-```
+```js
 if (inst.shouldComponentUpdate) {
     //如果shouldComponentUpdate方法被重写
     if (process.env.NODE_ENV !== 'production') {
@@ -110,7 +110,7 @@ shallowEqual 实际上来自这里 [shallowEqual源码](https://github.com/faceb
 
 代码如下
 
-```
+```js
 //是不是绝对的相等
 function is(x: mixed, y: mixed): boolean {
   // SameValue algorithm
@@ -167,7 +167,7 @@ module.exports = shallowEqual;
 
 ### 从一个稍复杂的例子下手
 
-```
+```js
 import React from 'react';
 
 class List extends React.Component{
@@ -263,7 +263,7 @@ export default List;
 
 加入以下代码
 
-```
+```js
 shouldComponentUpdate(nextProps) {
     return this.props.data.checked !== nextProps.data.checked;
 }
@@ -275,7 +275,7 @@ shouldComponentUpdate(nextProps) {
 
 看到改变前和改变后是一样的，出现这种情况，可能是常见的引用类型引起的问题，每一次改动都是同一指针指向同一内存，数据改变是同步的。我们可以用深拷贝的方式解决这个问题
 
-```
+```js
 let list = JSON.parse(JSON.stringify(this.state.list));
 ```
 
@@ -300,7 +300,7 @@ Immutable.js 是什么，我们能用它来做什么呢？
 - 结构共享：新的集合会尽可能的复用之前集合内的内容。减少重复复制来提高性能。如果新集合和原来的集合是相等的，则会直接把之前的集合返回给新集合。
 
 不可变的特性让跟踪变化变得简单；每次改变总是会产生新的一个对象，所以。我们只需要判断一下它们引用是否相同即可。举个例子，下面是常规的Javascript的写法：
-```
+```js
 var x = { foo: "bar" };
 var y = x;
 y.foo = "baz";
@@ -309,7 +309,7 @@ x === y; // true
 
 尽管y已经被更改了，但是它的引用还是和x是一致的。所以他们两个进行对比，始终会返回true。所以，这样的操作应该要用immutable-js来完成：
 
-```
+```js
 var SomeRecord = Immutable.Record({ foo: null });
 var x = new SomeRecord({ foo: 'bar'  });
 var y = x.set('foo', 'baz');
@@ -322,7 +322,7 @@ x === y; // false
 
 根据这种情况 修改代码如下
 
-```
+```js
 import React from 'react';
 
 class List extends React.Component{
