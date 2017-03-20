@@ -1,7 +1,7 @@
 ---
 title: React 中 PureComponent 部分代码分析
 date: 2017-02-22 22:45:26
-tags: React
+tags: react
 ---
 
 ### PR

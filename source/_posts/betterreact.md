@@ -1,7 +1,7 @@
 ---
 title: React 性能优化初探
 date: 2017-02-21 23:06:48
-tags: React
+tags: react
 ---
 ### 性能指标工具React Perf
 React 官方为我们提供的性能指标工具 Perf (只适用于开发模式)
