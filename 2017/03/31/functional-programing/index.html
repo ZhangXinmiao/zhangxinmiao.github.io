@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="什么是函数式编程  函数式编程是一种编程范型，Javascript就支持这种编程范型。
+函数式编程的特点函数是一等公民在 Javascript 中，我们可以像对其他类型一样对待函数，我们将函数存在数组里、将函数作为参数传递、作为返回值返回…没有什么特别的地方
+为什么我们强调函数是一等公民呢，有这样一个例子
+123456789// 太傻了  var getServerStuff = function">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数式编程学习笔记">
+<meta property="og:url" content="http://zhangxinmiao.com/2017/03/31/functional-programing/index.html">
+<meta property="og:site_name" content="ZhangXinmiao's blog">
+<meta property="og:description" content="什么是函数式编程  函数式编程是一种编程范型，Javascript就支持这种编程范型。
+函数式编程的特点函数是一等公民在 Javascript 中，我们可以像对其他类型一样对待函数，我们将函数存在数组里、将函数作为参数传递、作为返回值返回…没有什么特别的地方
+为什么我们强调函数是一等公民呢，有这样一个例子
+123456789// 太傻了  var getServerStuff = function">
+<meta property="og:image" content="http://zhangxinmiao.com/2017/03/31/functional-programing/function.png">
+<meta property="og:updated_time" content="2017-03-31T12:16:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="函数式编程学习笔记">
+<meta name="twitter:description" content="什么是函数式编程  函数式编程是一种编程范型，Javascript就支持这种编程范型。
+函数式编程的特点函数是一等公民在 Javascript 中，我们可以像对其他类型一样对待函数，我们将函数存在数组里、将函数作为参数传递、作为返回值返回…没有什么特别的地方
+为什么我们强调函数是一等公民呢，有这样一个例子
+123456789// 太傻了  var getServerStuff = function">
+<meta name="twitter:image" content="http://zhangxinmiao.com/2017/03/31/functional-programing/function.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>函数式编程学习笔记</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+    <link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+    <!-- jquery -->
+    <script src="/lib/jquery/jquery.min.js"></script>
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/ZhangXinmiao">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2017/03/28/tsnote/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://zhangxinmiao.com/2017/03/31/functional-programing/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://zhangxinmiao.com/2017/03/31/functional-programing/&text=函数式编程学习笔记"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://zhangxinmiao.com/2017/03/31/functional-programing/&title=函数式编程学习笔记"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://zhangxinmiao.com/2017/03/31/functional-programing/&is_video=false&description=函数式编程学习笔记"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=函数式编程学习笔记&body=Check out this article: http://zhangxinmiao.com/2017/03/31/functional-programing/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://zhangxinmiao.com/2017/03/31/functional-programing/&title=函数式编程学习笔记"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://zhangxinmiao.com/2017/03/31/functional-programing/&title=函数式编程学习笔记"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://zhangxinmiao.com/2017/03/31/functional-programing/&title=函数式编程学习笔记"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://zhangxinmiao.com/2017/03/31/functional-programing/&title=函数式编程学习笔记"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://zhangxinmiao.com/2017/03/31/functional-programing/&name=函数式编程学习笔记&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#什么是函数式编程"><span class="toc-number">1.</span> <span class="toc-text">什么是函数式编程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数式编程的特点"><span class="toc-number">2.</span> <span class="toc-text">函数式编程的特点</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#函数是一等公民"><span class="toc-number">2.1.</span> <span class="toc-text">函数是一等公民</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#纯函数的方式编程"><span class="toc-number">2.2.</span> <span class="toc-text">纯函数的方式编程</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#柯里化（curry）"><span class="toc-number">3.</span> <span class="toc-text">柯里化（curry）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数组合（compose）"><span class="toc-number">4.</span> <span class="toc-text">函数组合（compose）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        函数式编程学习笔记
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ZhangXinmiao's blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-03-31T12:10:51.000Z" itemprop="datePublished">2017-03-31</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h4 id="什么是函数式编程"><a href="#什么是函数式编程" class="headerlink" title="什么是函数式编程"></a>什么是函数式编程</h4><p>  <a href="https://zh.wikipedia.org/wiki/%E5%87%BD%E6%95%B8%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80" target="_blank" rel="external">函数式编程</a>是一种<a href="https://zh.wikipedia.org/wiki/%E7%BC%96%E7%A8%8B%E8%8C%83%E5%9E%8B" target="_blank" rel="external">编程范型</a>，Javascript就支持这种编程范型。</p>
+<h4 id="函数式编程的特点"><a href="#函数式编程的特点" class="headerlink" title="函数式编程的特点"></a>函数式编程的特点</h4><h5 id="函数是一等公民"><a href="#函数是一等公民" class="headerlink" title="函数是一等公民"></a>函数是一等公民</h5><p>在 Javascript 中，我们可以像对其他类型一样对待函数，我们将函数存在数组里、将函数作为参数传递、作为返回值返回…没有什么特别的地方</p>
+<p>为什么我们强调函数是一等公民呢，有这样一个例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">// 太傻了  </div><div class="line">var getServerStuff = function(callback)&#123;</div><div class="line">  return ajaxCall(function(json)&#123;</div><div class="line">    return callback(json);</div><div class="line">  &#125;);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">// 这才像样</div><div class="line">var getServerStuff = ajaxCall;</div></pre></td></tr></table></figure>
+<p>在第一种写法中，给 ajaxCall 逃了一层是没有必要的，造成了代码冗余；还有一种情况是，当我们需要给 ajaxCall 添加一个参数的时候，包裹它的 getServerStuff 也需要跟着增加一个参数，这又使代码变得不利于维护。</p>
+<p>第二种写法则一目了然，也不会出现添加一个参数需要修改多处的情况。相比起来，我们更认同第二种函数作为一等公民的写法。</p>
+<h5 id="纯函数的方式编程"><a href="#纯函数的方式编程" class="headerlink" title="纯函数的方式编程"></a>纯函数的方式编程</h5><p>先来看看什么样的函数被认为是纯函数呢，slice 和 splice 是我们经常会用到的两个 Javascript 中的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">let arr = [1, 2, 3, 4, 5];</div><div class="line">let newArr = arr.slice(0, 3);</div><div class="line">console.log(arr);  // [ 1, 2, 3, 4, 5 ]</div><div class="line">console.log(newArr);  // [ 1, 2, 3 ]</div><div class="line"></div><div class="line">let newArr1 = arr.splice(0, 3);</div><div class="line">console.log(arr); // [ 4, 5 ]</div><div class="line">console.log(newArr1); // [ 1, 2, 3 ]</div></pre></td></tr></table></figure>
+<p>阅读这段代码，我们发现二者的效果是一样的，但是 slice 并没有改变原来的数组，而 splice 则永久的改变了原数组，如果我们的本意只是截取数组的一段，那么我们认为 splice 是不纯的，因为它做了多余的事情(改变原数组)。</p>
+<p>再看这样一个例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">// 不纯的</div><div class="line">var minimum = 21;</div><div class="line"></div><div class="line">var checkAge = function(age) &#123;</div><div class="line">  return age &gt;= minimum;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"></div><div class="line">// 纯的</div><div class="line">var checkAge = function(age) &#123;</div><div class="line">  var minimum = 21;</div><div class="line">  return age &gt;= minimum;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>第一种写法中的 checkAge 函数返回的结果依赖于外部的 minimum，这可能造成对于相同的 age 输入， 返回的结果可能不同，因为 minimum 是一个不确定的因素，第二种纯函数的写法就能避免这种困扰，checkAge 函数的返回值只依赖 age， 也就是说，只要传入值 age 是相同的，返回值也一定是相同的，这就是纯函数。</p>
+<p>如果参数是一个对象，我们可以考虑把它转化成一个不可变的(Immutable)对象，也有Immutable.js的库来帮助我们做这件事情。</p>
+<p>纯函数的概念也整对应着数学中的<a href="https://zh.wikipedia.org/wiki/%E5%87%BD%E6%95%B0" target="_blank" rel="external">函数</a>概念，在这种映射关系中，每个 x 中的元素只对应一个 y 中的元素</p>
+<p><img src="/2017/03/31/functional-programing/function.png" alt="1" title="图(1)"></p>
+<ul>
+<li>引用透明性</li>
+</ul>
+<p>引用透明性（referential transparency）: 如果一段代码可以替换成它执行所得的结果，而且是在不改变整个程序行为的前提下替换的，那么我们就说这段代码是引用透明的</p>
+<p>基于使用纯函数输入相同输出相同的原则，我们可以得出——函数式编程是具有引用透明性的。</p>
+<h4 id="柯里化（curry）"><a href="#柯里化（curry）" class="headerlink" title="柯里化（curry）"></a>柯里化（curry）</h4><p>柯里化（curry）：只传递给函数一部分参数来调用它，让它返回一个函数去处理剩下的参数。</p>
+<p>下面是一段典型的 curry 函数的例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var add = function(x) &#123;</div><div class="line">  return function(y) &#123;</div><div class="line">    return x + y;</div><div class="line">  &#125;;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">var increment = add(1);</div><div class="line">var addTen = add(10);</div><div class="line"></div><div class="line">increment(2);  // 3</div><div class="line"></div><div class="line">addTen(2);  // 12</div></pre></td></tr></table></figure>
+<p>同样，我们也可以借助工具完成函数 curry 化的工作，以下的例子利用 Lodash 库的 curry 方法</p>
+<p>可以先大致看一下 Lodash 中 curry 的使用方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">const curry = _.curry;</div><div class="line"></div><div class="line">let func = (x, y) =&gt; &#123;</div><div class="line">	return [x, y, x + y];</div><div class="line">&#125;</div><div class="line"></div><div class="line">let curryFunc = curry(func);</div><div class="line"></div><div class="line">let a = curryFunc(1)(2);</div><div class="line"></div><div class="line">let b = curryFunc(1, 2);</div></pre></td></tr></table></figure>
+<p>把我们需要 curry 化的函数传入 curry，返回的函数就被 curry 化处理了，我们可以把参数任意的组合分次传入。</p>
+<p>这样，传入一个或者几个参数就能得到一个新的函数。</p>
+<h4 id="函数组合（compose）"><a href="#函数组合（compose）" class="headerlink" title="函数组合（compose）"></a>函数组合（compose）</h4><p>下面这段代码就是一个函数组合（compose）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var compose = function(f,g) &#123;</div><div class="line">  return function(x) &#123;</div><div class="line">    return f(g(x));</div><div class="line">  &#125;;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>compose 使我们像搭乐高积木一样使用函数，随意选择两个函数，即可组合成一个新的函数，x 使数据在两个函数间传输。</p>
+<p>compose 的一个例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">// 取获得数组的第一个元素</div><div class="line">var head = function(x) &#123; return x[0]; &#125;;</div><div class="line">// 获得一个反转的数组</div><div class="line">var reverse = function(x) &#123; return x.reverse()&#125;</div><div class="line">var toLowerCase = function(x) &#123; return x.toLowerCase()&#125;</div><div class="line"></div><div class="line">// 组合 head 和 reserve，获得获取数组的最后一个元素的函数</div><div class="line">var last = compose(head, reverse);</div><div class="line"></div><div class="line">var result = last([&apos;jumpkick&apos;, &apos;roundhouse&apos;, &apos;uppercut&apos;]);</div><div class="line">console.log(result); // &apos;uppercut&apos;</div><div class="line"></div><div class="line">// 组合 toLowerCase 和 head，获得获取数组第一个元素并转化为小写</div><div class="line">var snakeCase = compose(toLowerCase, head);</div><div class="line">var result1 = snakeCase([&quot;Q&quot;, &quot;W&quot;, &quot;E&quot;]);</div><div class="line">console.log(result1); // q</div></pre></td></tr></table></figure>
+<p>从这个例子可以发现，组合后是一个“从右向左”的过程</p>
+<p>Lodash 为我们提供两种组合方式，分别是“从右向左”和“从左向右”</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function square(n) &#123;</div><div class="line">  return n * n;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var addSquare = _.flowRight([square, _.add]);</div><div class="line">addSquare(1, 2);</div><div class="line">// =&gt; 9</div><div class="line"></div><div class="line">var addSquare = _.flow([_.add, square]);</div><div class="line">addSquare(1, 2);</div><div class="line">// =&gt; 9</div></pre></td></tr></table></figure>
+<p>用 Lodash 对上面的函数进行一下组合</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">const composeRight = _.flowRight;</div><div class="line">let newFunc = composeRight(toLowerCase, head, reverse);</div><div class="line">let result = newFunc([&quot;Q&quot;, &quot;W&quot;, &quot;E&quot;]);</div><div class="line">console.log(result); //e</div></pre></td></tr></table></figure>
+<p>可以看到，组合就像一个流水线一样，我们用函数指定分别做什么样的操作，经过流水线的加工，最后得出结果，具有很好的语义化。</p>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><ul>
+<li><a href="https://www.gitbook.com/book/llh911001/mostly-adequate-guide-chinese/details" target="_blank" rel="external">JS函数式编程指南</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2012/04/functional_programming.html" target="_blank" rel="external">阮一峰-函数式编程初探</a></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/ZhangXinmiao">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#什么是函数式编程"><span class="toc-number">1.</span> <span class="toc-text">什么是函数式编程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数式编程的特点"><span class="toc-number">2.</span> <span class="toc-text">函数式编程的特点</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#函数是一等公民"><span class="toc-number">2.1.</span> <span class="toc-text">函数是一等公民</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#纯函数的方式编程"><span class="toc-number">2.2.</span> <span class="toc-text">纯函数的方式编程</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#柯里化（curry）"><span class="toc-number">3.</span> <span class="toc-text">柯里化（curry）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数组合（compose）"><span class="toc-number">4.</span> <span class="toc-text">函数组合（compose）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://zhangxinmiao.com/2017/03/31/functional-programing/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://zhangxinmiao.com/2017/03/31/functional-programing/&text=函数式编程学习笔记"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://zhangxinmiao.com/2017/03/31/functional-programing/&title=函数式编程学习笔记"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://zhangxinmiao.com/2017/03/31/functional-programing/&is_video=false&description=函数式编程学习笔记"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=函数式编程学习笔记&body=Check out this article: http://zhangxinmiao.com/2017/03/31/functional-programing/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://zhangxinmiao.com/2017/03/31/functional-programing/&title=函数式编程学习笔记"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://zhangxinmiao.com/2017/03/31/functional-programing/&title=函数式编程学习笔记"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://zhangxinmiao.com/2017/03/31/functional-programing/&title=函数式编程学习笔记"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://zhangxinmiao.com/2017/03/31/functional-programing/&title=函数式编程学习笔记"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://zhangxinmiao.com/2017/03/31/functional-programing/&name=函数式编程学习笔记&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick='$("#toc-footer").toggle();return false;'><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick='$("#share-footer").toggle();return false;'><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2017 张鑫淼
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="https://github.com/ZhangXinmiao">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6758d90e17524a26c9e187195678a132";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
