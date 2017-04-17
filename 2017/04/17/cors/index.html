@@ -6,13 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="article">
-<meta property="og:title" content="cors">
+    <meta name="description" content="同源策略先明确一下同源策略是什么
+
+the same-origin policy is an important concept in the web application security model. Under the policy, a web browser permits scripts contained in a first web page to access data in">
+<meta property="og:type" content="article">
+<meta property="og:title" content="跨域资源共享 CORS">
 <meta property="og:url" content="http://zhangxinmiao.com/2017/04/17/cors/index.html">
 <meta property="og:site_name" content="ZhangXinmiao's blog">
-<meta property="og:updated_time" content="2017-04-17T13:41:05.000Z">
+<meta property="og:description" content="同源策略先明确一下同源策略是什么
+
+the same-origin policy is an important concept in the web application security model. Under the policy, a web browser permits scripts contained in a first web page to access data in">
+<meta property="og:updated_time" content="2017-04-17T13:44:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cors">
+<meta name="twitter:title" content="跨域资源共享 CORS">
+<meta name="twitter:description" content="同源策略先明确一下同源策略是什么
+
+the same-origin policy is an important concept in the web application security model. Under the policy, a web browser permits scripts contained in a first web page to access data in">
     
     
         
@@ -32,7 +41,7 @@
         
     
     <!-- title -->
-    <title>cors</title>
+    <title>跨域资源共享 CORS</title>
     <!-- styles -->
     <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/lib/meslo-LG/styles.css">
@@ -84,20 +93,20 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://zhangxinmiao.com/2017/04/17/cors/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://zhangxinmiao.com/2017/04/17/cors/&text=cors"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://zhangxinmiao.com/2017/04/17/cors/&title=cors"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://zhangxinmiao.com/2017/04/17/cors/&is_video=false&description=cors"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=cors&body=Check out this article: http://zhangxinmiao.com/2017/04/17/cors/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://zhangxinmiao.com/2017/04/17/cors/&title=cors"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://zhangxinmiao.com/2017/04/17/cors/&title=cors"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://zhangxinmiao.com/2017/04/17/cors/&title=cors"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://zhangxinmiao.com/2017/04/17/cors/&title=cors"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://zhangxinmiao.com/2017/04/17/cors/&name=cors&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://zhangxinmiao.com/2017/04/17/cors/&text=跨域资源共享 CORS"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://zhangxinmiao.com/2017/04/17/cors/&title=跨域资源共享 CORS"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://zhangxinmiao.com/2017/04/17/cors/&is_video=false&description=跨域资源共享 CORS"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=跨域资源共享 CORS&body=Check out this article: http://zhangxinmiao.com/2017/04/17/cors/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://zhangxinmiao.com/2017/04/17/cors/&title=跨域资源共享 CORS"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://zhangxinmiao.com/2017/04/17/cors/&title=跨域资源共享 CORS"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://zhangxinmiao.com/2017/04/17/cors/&title=跨域资源共享 CORS"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://zhangxinmiao.com/2017/04/17/cors/&title=跨域资源共享 CORS"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://zhangxinmiao.com/2017/04/17/cors/&name=跨域资源共享 CORS&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
     <div id="toc">
-      
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#同源策略"><span class="toc-number">1.</span> <span class="toc-text">同源策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#跨域资源共享（CORS）"><span class="toc-number">2.</span> <span class="toc-text">跨域资源共享（CORS）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#了解-CORS"><span class="toc-number">2.1.</span> <span class="toc-text">了解 CORS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#浏览器对于简单-CORS-请求的处理过程"><span class="toc-number">2.2.</span> <span class="toc-text">浏览器对于简单 CORS 请求的处理过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#非简单-CORS-请求的处理过程"><span class="toc-number">2.3.</span> <span class="toc-text">非简单 CORS 请求的处理过程</span></a></li></ol></li></ol>
     </div>
   </span>
 </div>
@@ -109,7 +118,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        cors
+        跨域资源共享 CORS
     </h1>
 
 
@@ -125,13 +134,57 @@
 
 
       
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/同源策略/">同源策略</a>
+    </div>
+
 
     </div>
   </header>
   
 
   <div class="content" itemprop="articleBody">
-    
+    <h3 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h3><p>先明确一下同源策略是什么</p>
+<blockquote>
+<p>the <strong>same-origin policy</strong> is an important concept in the <a href="https://en.wikipedia.org/wiki/Web_application" target="_blank" rel="external">web application</a> <a href="https://en.wikipedia.org/wiki/Computer_security_model" target="_blank" rel="external">security model</a>. Under the policy, a <a href="https://en.wikipedia.org/wiki/Web_browser_engine" target="_blank" rel="external">web browser</a> permits scripts contained in a first web page to access data in a second web page, but only if both web pages have the same <em>origin</em>.                                                            </p>
+<p>​                                                                                                                                                           ——wikipedia</p>
+</blockquote>
+<p>同源策略是 web 应用安全模型的一个重要概念，在这样的策略下，<strong><em>只有在两个页面有着相同的源的时候</em></strong>浏览器允许第一个页面包含的脚本从第二个网页获取数据。</p>
+<p>所谓同源：</p>
+<ul>
+<li>协议相同</li>
+<li>域名相同</li>
+<li>端口相同</li>
+</ul>
+<p>如果是非同源的，以下这些在获取时都会受到限制：cookie、LocalStorage、IndexDB、DOM、AJAX</p>
+<h3 id="跨域资源共享（CORS）"><a href="#跨域资源共享（CORS）" class="headerlink" title="跨域资源共享（CORS）"></a>跨域资源共享（CORS）</h3><h4 id="了解-CORS"><a href="#了解-CORS" class="headerlink" title="了解 CORS"></a>了解 CORS</h4><p>CORS 可以帮我们避开浏览器的同源策略</p>
+<p>满足一下条件的，称之为<strong>简单请求</strong>，反之，则为<strong>非简单请求</strong></p>
+<ul>
+<li>请求方法为 GET、POST 或 HEAD</li>
+<li>HTTP的头信息不超出以下几种字段：<ul>
+<li>Accept</li>
+<li>Accept-Language</li>
+<li>Content-Language</li>
+<li>Last-Event-ID</li>
+<li>Content-Type：只限于三个值<code>application/x-www-form-urlencode</code>、<code>multipart/form-data</code>、<code>text/plain</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="浏览器对于简单-CORS-请求的处理过程"><a href="#浏览器对于简单-CORS-请求的处理过程" class="headerlink" title="浏览器对于简单 CORS 请求的处理过程"></a>浏览器对于简单 CORS 请求的处理过程</h4><p>对于简答请求，浏览器直接在请求头中添加 <code>Origin</code> 字段，该字段用来表明这次请求的<strong>源</strong>，服务器就是根据这个值来判断是否允许此次跨域请求</p>
+<p>如果<code>Origin</code>在服务器允许的范围内，服务器则返回相应，并给相应头添加几个字段</p>
+<ul>
+<li><p>Access-Control-Allow-Credentials 非必须的，一个布尔值，表示是否允许发送 cookie，如果不允许，直接把该字段去掉即可</p>
+<p>如果场景需要我们的请求带上cookie，就需要服务器指定 <code>Access-Control-Allow-Credentials</code>值为 true，发出的 ajax 请求也对应的设置<code>withCredentials</code>值为true；fetch 方式对应的属性为<code>credentials</code>，该值应设置为’include’。</p>
+</li>
+</ul>
+<ul>
+<li>Access-Control-Allow-Origin 必须的，值为请求时Origin的值或者*（表示全部的源均被允许）</li>
+<li>Access-Control-Expose-Headers</li>
+<li>Content-Type</li>
+</ul>
+<h4 id="非简单-CORS-请求的处理过程"><a href="#非简单-CORS-请求的处理过程" class="headerlink" title="非简单 CORS 请求的处理过程"></a>非简单 CORS 请求的处理过程</h4><p>对于非简单的请求，浏览器会先发出一次预请求（preflight） OPTIONS，所以当调试时出现了 OPTION 这种情况时，就要仔细查发出的请求是不是简单请求了。</p>
+
   </div>
 </article>
 
@@ -157,21 +210,21 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#同源策略"><span class="toc-number">1.</span> <span class="toc-text">同源策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#跨域资源共享（CORS）"><span class="toc-number">2.</span> <span class="toc-text">跨域资源共享（CORS）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#了解-CORS"><span class="toc-number">2.1.</span> <span class="toc-text">了解 CORS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#浏览器对于简单-CORS-请求的处理过程"><span class="toc-number">2.2.</span> <span class="toc-text">浏览器对于简单 CORS 请求的处理过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#非简单-CORS-请求的处理过程"><span class="toc-number">2.3.</span> <span class="toc-text">非简单 CORS 请求的处理过程</span></a></li></ol></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://zhangxinmiao.com/2017/04/17/cors/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://zhangxinmiao.com/2017/04/17/cors/&text=cors"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://zhangxinmiao.com/2017/04/17/cors/&title=cors"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://zhangxinmiao.com/2017/04/17/cors/&is_video=false&description=cors"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=cors&body=Check out this article: http://zhangxinmiao.com/2017/04/17/cors/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://zhangxinmiao.com/2017/04/17/cors/&title=cors"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://zhangxinmiao.com/2017/04/17/cors/&title=cors"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://zhangxinmiao.com/2017/04/17/cors/&title=cors"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://zhangxinmiao.com/2017/04/17/cors/&title=cors"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://zhangxinmiao.com/2017/04/17/cors/&name=cors&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://zhangxinmiao.com/2017/04/17/cors/&text=跨域资源共享 CORS"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://zhangxinmiao.com/2017/04/17/cors/&title=跨域资源共享 CORS"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://zhangxinmiao.com/2017/04/17/cors/&is_video=false&description=跨域资源共享 CORS"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=跨域资源共享 CORS&body=Check out this article: http://zhangxinmiao.com/2017/04/17/cors/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://zhangxinmiao.com/2017/04/17/cors/&title=跨域资源共享 CORS"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://zhangxinmiao.com/2017/04/17/cors/&title=跨域资源共享 CORS"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://zhangxinmiao.com/2017/04/17/cors/&title=跨域资源共享 CORS"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://zhangxinmiao.com/2017/04/17/cors/&title=跨域资源共享 CORS"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://zhangxinmiao.com/2017/04/17/cors/&name=跨域资源共享 CORS&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
