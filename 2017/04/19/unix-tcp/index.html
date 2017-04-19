@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="传输控制协议TCP
+TCP 提供客户与服务器之间的连接（connection）。TCP 客户先与某个给定服务器建立一个连接，再跨该连接与那个服务器交换数据，然后终止这个连接
+TCP 提供了可靠性（reliability）。这里的可靠性是指数据的可靠递送和故障的可靠通知。当 TCP 像另一端发送数据时，它要求对端返回一个确认，如果没有收到确认，TCP 就自动重传数据，数次重传后，TCP 才放弃
+TC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UNIX 网络编程学习——关于 TCP">
+<meta property="og:url" content="http://zhangxinmiao.com/2017/04/19/unix-tcp/index.html">
+<meta property="og:site_name" content="ZhangXinmiao's blog">
+<meta property="og:description" content="传输控制协议TCP
+TCP 提供客户与服务器之间的连接（connection）。TCP 客户先与某个给定服务器建立一个连接，再跨该连接与那个服务器交换数据，然后终止这个连接
+TCP 提供了可靠性（reliability）。这里的可靠性是指数据的可靠递送和故障的可靠通知。当 TCP 像另一端发送数据时，它要求对端返回一个确认，如果没有收到确认，TCP 就自动重传数据，数次重传后，TCP 才放弃
+TC">
+<meta property="og:updated_time" content="2017-04-19T04:45:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UNIX 网络编程学习——关于 TCP">
+<meta name="twitter:description" content="传输控制协议TCP
+TCP 提供客户与服务器之间的连接（connection）。TCP 客户先与某个给定服务器建立一个连接，再跨该连接与那个服务器交换数据，然后终止这个连接
+TCP 提供了可靠性（reliability）。这里的可靠性是指数据的可靠递送和故障的可靠通知。当 TCP 像另一端发送数据时，它要求对端返回一个确认，如果没有收到确认，TCP 就自动重传数据，数次重传后，TCP 才放弃
+TC">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>UNIX 网络编程学习——关于 TCP</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+    <link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+    <!-- jquery -->
+    <script src="/lib/jquery/jquery.min.js"></script>
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/ZhangXinmiao">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2017/04/17/cors/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://zhangxinmiao.com/2017/04/19/unix-tcp/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://zhangxinmiao.com/2017/04/19/unix-tcp/&text=UNIX 网络编程学习——关于 TCP"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://zhangxinmiao.com/2017/04/19/unix-tcp/&title=UNIX 网络编程学习——关于 TCP"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://zhangxinmiao.com/2017/04/19/unix-tcp/&is_video=false&description=UNIX 网络编程学习——关于 TCP"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=UNIX 网络编程学习——关于 TCP&body=Check out this article: http://zhangxinmiao.com/2017/04/19/unix-tcp/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://zhangxinmiao.com/2017/04/19/unix-tcp/&title=UNIX 网络编程学习——关于 TCP"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://zhangxinmiao.com/2017/04/19/unix-tcp/&title=UNIX 网络编程学习——关于 TCP"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://zhangxinmiao.com/2017/04/19/unix-tcp/&title=UNIX 网络编程学习——关于 TCP"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://zhangxinmiao.com/2017/04/19/unix-tcp/&title=UNIX 网络编程学习——关于 TCP"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://zhangxinmiao.com/2017/04/19/unix-tcp/&name=UNIX 网络编程学习——关于 TCP&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#传输控制协议TCP"><span class="toc-number">1.</span> <span class="toc-text">传输控制协议TCP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP-三次握手（three-way-handshake）"><span class="toc-number">2.</span> <span class="toc-text">TCP 三次握手（three-way handshake）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP-四次挥手"><span class="toc-number">3.</span> <span class="toc-text">TCP 四次挥手</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        UNIX 网络编程学习——关于 TCP
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ZhangXinmiao's blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-04-19T04:43:37.000Z" itemprop="datePublished">2017-04-19</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/网络/">网络</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h4 id="传输控制协议TCP"><a href="#传输控制协议TCP" class="headerlink" title="传输控制协议TCP"></a>传输控制协议TCP</h4><ul>
+<li>TCP 提供客户与服务器之间的<strong>连接（connection）</strong>。TCP 客户先与某个给定服务器建立一个连接，再跨该连接与那个服务器交换数据，然后终止这个连接</li>
+<li>TCP 提供了<strong>可靠性（reliability）</strong>。这里的可靠性是指数据的可靠递送和故障的可靠通知。当 TCP 像另一端发送数据时，它要求对端返回一个确认，如果没有收到确认，TCP 就自动重传数据，数次重传后，TCP 才放弃</li>
+<li>TCP 提供<strong>流量控制（flow control）</strong>。TCP 总是告诉对端在任何时刻它一次能够从对端接受多少字节的数据，这成为<strong><em>通告窗口（advertised window）</em></strong>，窗口大小是时刻动态变化的。</li>
+<li>TCP 是<strong>全双工的（full-duplex）</strong>。这意味着在一个连接上，应用可以在任意时刻在进出两个方向上即发送数据又接受数据。</li>
+</ul>
+<h4 id="TCP-三次握手（three-way-handshake）"><a href="#TCP-三次握手（three-way-handshake）" class="headerlink" title="TCP 三次握手（three-way handshake）"></a>TCP 三次握手（three-way handshake）</h4><p>TCP 建立连接时会发生以下的情形</p>
+<ul>
+<li>服务器必须准备好接受外来的连接，这通常通过调用 socket、bind 和 listen 这三个函数来实现，我们称这个过程为<strong>被动打开（passive open）</strong>。</li>
+<li>客户通过 connect 发起<strong>主动打开（active open）</strong>，这导致客户发送一个 SYN 信号，他告诉服务器客户将在连接中发送的数据的初始序列号。</li>
+<li>服务器确认客户的 SYN，服务器发送这个 SYN 和对客户 SYN 的确认 ACK</li>
+<li>客户必须确认服务器的 SYN</li>
+</ul>
+<p>这种交换至少需要三个分组，所以我们称之为<strong>TCP 的三次握手</strong>。</p>
+<h4 id="TCP-四次挥手"><a href="#TCP-四次挥手" class="headerlink" title="TCP 四次挥手"></a>TCP 四次挥手</h4><ul>
+<li>某个应用进程先调用 close，我们称该端执行<strong>主动关闭（active close）</strong>，该端的 TCP 就发送了一个 FIN 分节，表示数据发送完毕。</li>
+<li>接受到这个 FIN 的对端执行<strong>被动关闭（passive close）</strong>，这个 FIN 由 TCP 确认，FIN 的接受意味着接受端的应用进程在相应的连接上再无额外数据可接受，于是把接受作文一个文件结束符（end-of-file）传递给接受端应用进程。</li>
+<li>接受到这个文件结束符的应用进程调用 close 关闭它的套接字，这导致它的 TCP 也发送一个 FIN</li>
+<li>执行主动关闭的那一端确认 FIN</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/ZhangXinmiao">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#传输控制协议TCP"><span class="toc-number">1.</span> <span class="toc-text">传输控制协议TCP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP-三次握手（three-way-handshake）"><span class="toc-number">2.</span> <span class="toc-text">TCP 三次握手（three-way handshake）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP-四次挥手"><span class="toc-number">3.</span> <span class="toc-text">TCP 四次挥手</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://zhangxinmiao.com/2017/04/19/unix-tcp/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://zhangxinmiao.com/2017/04/19/unix-tcp/&text=UNIX 网络编程学习——关于 TCP"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://zhangxinmiao.com/2017/04/19/unix-tcp/&title=UNIX 网络编程学习——关于 TCP"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://zhangxinmiao.com/2017/04/19/unix-tcp/&is_video=false&description=UNIX 网络编程学习——关于 TCP"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=UNIX 网络编程学习——关于 TCP&body=Check out this article: http://zhangxinmiao.com/2017/04/19/unix-tcp/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://zhangxinmiao.com/2017/04/19/unix-tcp/&title=UNIX 网络编程学习——关于 TCP"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://zhangxinmiao.com/2017/04/19/unix-tcp/&title=UNIX 网络编程学习——关于 TCP"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://zhangxinmiao.com/2017/04/19/unix-tcp/&title=UNIX 网络编程学习——关于 TCP"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://zhangxinmiao.com/2017/04/19/unix-tcp/&title=UNIX 网络编程学习——关于 TCP"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://zhangxinmiao.com/2017/04/19/unix-tcp/&name=UNIX 网络编程学习——关于 TCP&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick='$("#toc-footer").toggle();return false;'><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick='$("#share-footer").toggle();return false;'><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2017 张鑫淼
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="https://github.com/ZhangXinmiao">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6758d90e17524a26c9e187195678a132";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
