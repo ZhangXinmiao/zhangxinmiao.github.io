@@ -26,7 +26,7 @@
 另外两种常见">
 <meta property="og:image" content="http://zhangxinmiao.com/2017/05/17/os-tips/0.png">
 <meta property="og:image" content="http://zhangxinmiao.com/2017/05/17/os-tips/1.png">
-<meta property="og:updated_time" content="2017-05-17T07:44:27.000Z">
+<meta property="og:updated_time" content="2017-05-17T09:36:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="操作系统相关知识整理">
 <meta name="twitter:description" content="操作系统的主要功能
@@ -121,7 +121,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#操作系统的主要功能"><span class="toc-number">1.</span> <span class="toc-text">操作系统的主要功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于进程"><span class="toc-number">2.</span> <span class="toc-text">关于进程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#进程的三个基本状态"><span class="toc-number">2.1.</span> <span class="toc-text">进程的三个基本状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#另外两种常见的状态"><span class="toc-number">2.2.</span> <span class="toc-text">另外两种常见的状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#五种基本状态之间的转换关系"><span class="toc-number">2.3.</span> <span class="toc-text">五种基本状态之间的转换关系</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#操作系统的主要功能"><span class="toc-number">1.</span> <span class="toc-text">操作系统的主要功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于进程"><span class="toc-number">2.</span> <span class="toc-text">关于进程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#进程的三个基本状态"><span class="toc-number">2.1.</span> <span class="toc-text">进程的三个基本状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#另外两种常见的状态"><span class="toc-number">2.2.</span> <span class="toc-text">另外两种常见的状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#五种基本状态之间的转换关系"><span class="toc-number">2.3.</span> <span class="toc-text">五种基本状态之间的转换关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#进程的通信类型"><span class="toc-number">2.4.</span> <span class="toc-text">进程的通信类型</span></a></li></ol></li></ol>
     </div>
   </span>
 </div>
@@ -171,6 +171,13 @@
 <li>终止状态：包括将PCB清零并将PCB空间返还系统等。</li>
 </ul>
 <h4 id="五种基本状态之间的转换关系"><a href="#五种基本状态之间的转换关系" class="headerlink" title="五种基本状态之间的转换关系"></a>五种基本状态之间的转换关系</h4><p><img src="/2017/05/17/os-tips/1.png" alt="0"></p>
+<h4 id="进程的通信类型"><a href="#进程的通信类型" class="headerlink" title="进程的通信类型"></a>进程的通信类型</h4><p>高级通信机制可分为四种：</p>
+<ul>
+<li>共享存储器系统（Shared-Memory System）：相互通信的进程共享某些数据结构或共享存储区。</li>
+<li>管道（pipe）通讯系统：“管道”是指用于连接一个读进程和一个写进程以实现它们之间通信的一个共享文件，又名pipe文件。向管道提供输入的发送进程以<strong>字符流</strong>的形式将大量数据送入管道；而接进程则从管道中接收数据，故称为<strong>管道通信</strong>。这种方式首创于UNIX系统，由于能够有效的传送大量数据，也被引入到其他的操作系统之中。</li>
+<li>消息传递系统（Message passing system）：以格式化的消息（message）为单位，将通信的数据封装在消息中，利用操作系统的原语在进程间进行消息传递。</li>
+<li>客户机-服务器系统（Client-server system）：主流通信机实现机制，只要方法分为三类：套接字、远程过程调用以及远程方法调用。</li>
+</ul>
 
   </div>
 </article>
@@ -197,7 +204,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#操作系统的主要功能"><span class="toc-number">1.</span> <span class="toc-text">操作系统的主要功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于进程"><span class="toc-number">2.</span> <span class="toc-text">关于进程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#进程的三个基本状态"><span class="toc-number">2.1.</span> <span class="toc-text">进程的三个基本状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#另外两种常见的状态"><span class="toc-number">2.2.</span> <span class="toc-text">另外两种常见的状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#五种基本状态之间的转换关系"><span class="toc-number">2.3.</span> <span class="toc-text">五种基本状态之间的转换关系</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#操作系统的主要功能"><span class="toc-number">1.</span> <span class="toc-text">操作系统的主要功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于进程"><span class="toc-number">2.</span> <span class="toc-text">关于进程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#进程的三个基本状态"><span class="toc-number">2.1.</span> <span class="toc-text">进程的三个基本状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#另外两种常见的状态"><span class="toc-number">2.2.</span> <span class="toc-text">另外两种常见的状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#五种基本状态之间的转换关系"><span class="toc-number">2.3.</span> <span class="toc-text">五种基本状态之间的转换关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#进程的通信类型"><span class="toc-number">2.4.</span> <span class="toc-text">进程的通信类型</span></a></li></ol></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
