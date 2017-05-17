@@ -6,17 +6,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="操作系统的主要功能">
+    <meta name="description" content="操作系统的主要功能
+关于进程进程的三个基本状态
+就绪状态（Ready）：进程已处于准备好运行的状态。如系统中有许多处于就绪状态的进程，这些进程将会被按照一定的策略排成一个队列，我们把该队列称之为就绪队列
+执行状态（Running）：进程已获得CPU，该程序正在执行的状态
+阻塞状态（Block）：进程的执行受到阻塞。系统将处于阻塞状态的进程也排列成一个队列，我们把该队列称之为阻塞队列
+
+另外两种常见">
 <meta property="og:type" content="article">
 <meta property="og:title" content="操作系统相关知识整理">
 <meta property="og:url" content="http://zhangxinmiao.com/2017/05/17/os-tips/index.html">
 <meta property="og:site_name" content="ZhangXinmiao's blog">
-<meta property="og:description" content="操作系统的主要功能">
+<meta property="og:description" content="操作系统的主要功能
+关于进程进程的三个基本状态
+就绪状态（Ready）：进程已处于准备好运行的状态。如系统中有许多处于就绪状态的进程，这些进程将会被按照一定的策略排成一个队列，我们把该队列称之为就绪队列
+执行状态（Running）：进程已获得CPU，该程序正在执行的状态
+阻塞状态（Block）：进程的执行受到阻塞。系统将处于阻塞状态的进程也排列成一个队列，我们把该队列称之为阻塞队列
+
+另外两种常见">
 <meta property="og:image" content="http://zhangxinmiao.com/2017/05/17/os-tips/0.png">
-<meta property="og:updated_time" content="2017-05-17T06:37:58.000Z">
+<meta property="og:image" content="http://zhangxinmiao.com/2017/05/17/os-tips/1.png">
+<meta property="og:updated_time" content="2017-05-17T07:44:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="操作系统相关知识整理">
-<meta name="twitter:description" content="操作系统的主要功能">
+<meta name="twitter:description" content="操作系统的主要功能
+关于进程进程的三个基本状态
+就绪状态（Ready）：进程已处于准备好运行的状态。如系统中有许多处于就绪状态的进程，这些进程将会被按照一定的策略排成一个队列，我们把该队列称之为就绪队列
+执行状态（Running）：进程已获得CPU，该程序正在执行的状态
+阻塞状态（Block）：进程的执行受到阻塞。系统将处于阻塞状态的进程也排列成一个队列，我们把该队列称之为阻塞队列
+
+另外两种常见">
 <meta name="twitter:image" content="http://zhangxinmiao.com/2017/05/17/os-tips/0.png">
     
     
@@ -102,7 +121,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#操作系统的主要功能"><span class="toc-number">1.</span> <span class="toc-text">操作系统的主要功能</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#操作系统的主要功能"><span class="toc-number">1.</span> <span class="toc-text">操作系统的主要功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于进程"><span class="toc-number">2.</span> <span class="toc-text">关于进程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#进程的三个基本状态"><span class="toc-number">2.1.</span> <span class="toc-text">进程的三个基本状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#另外两种常见的状态"><span class="toc-number">2.2.</span> <span class="toc-text">另外两种常见的状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#五种基本状态之间的转换关系"><span class="toc-number">2.3.</span> <span class="toc-text">五种基本状态之间的转换关系</span></a></li></ol></li></ol>
     </div>
   </span>
 </div>
@@ -142,6 +161,16 @@
 
   <div class="content" itemprop="articleBody">
     <h3 id="操作系统的主要功能"><a href="#操作系统的主要功能" class="headerlink" title="操作系统的主要功能"></a>操作系统的主要功能</h3><p><img src="/2017/05/17/os-tips/0.png" alt="0"></p>
+<h3 id="关于进程"><a href="#关于进程" class="headerlink" title="关于进程"></a>关于进程</h3><h4 id="进程的三个基本状态"><a href="#进程的三个基本状态" class="headerlink" title="进程的三个基本状态"></a>进程的三个基本状态</h4><ul>
+<li>就绪状态（Ready）：进程已处于准备好运行的状态。如系统中有许多处于就绪状态的进程，这些进程将会被按照一定的策略排成一个队列，我们把该队列称之为<strong>就绪队列</strong></li>
+<li>执行状态（Running）：进程已获得CPU，该程序正在执行的状态</li>
+<li>阻塞状态（Block）：进程的执行受到阻塞。系统将处于阻塞状态的进程也排列成一个队列，我们把该队列称之为<strong>阻塞队列</strong></li>
+</ul>
+<h4 id="另外两种常见的状态"><a href="#另外两种常见的状态" class="headerlink" title="另外两种常见的状态"></a>另外两种常见的状态</h4><ul>
+<li>创建状态：包括申请空白PCB、为进程分配资源等，保证进程的调度是必须在创建工作完成后进行，以确保对进程控制块操作的完整性。</li>
+<li>终止状态：包括将PCB清零并将PCB空间返还系统等。</li>
+</ul>
+<h4 id="五种基本状态之间的转换关系"><a href="#五种基本状态之间的转换关系" class="headerlink" title="五种基本状态之间的转换关系"></a>五种基本状态之间的转换关系</h4><p><img src="/2017/05/17/os-tips/1.png" alt="0"></p>
 
   </div>
 </article>
@@ -168,7 +197,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#操作系统的主要功能"><span class="toc-number">1.</span> <span class="toc-text">操作系统的主要功能</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#操作系统的主要功能"><span class="toc-number">1.</span> <span class="toc-text">操作系统的主要功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于进程"><span class="toc-number">2.</span> <span class="toc-text">关于进程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#进程的三个基本状态"><span class="toc-number">2.1.</span> <span class="toc-text">进程的三个基本状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#另外两种常见的状态"><span class="toc-number">2.2.</span> <span class="toc-text">另外两种常见的状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#五种基本状态之间的转换关系"><span class="toc-number">2.3.</span> <span class="toc-text">五种基本状态之间的转换关系</span></a></li></ol></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
