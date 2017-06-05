@@ -21,7 +21,7 @@ Xcode 在创建新项目时会自动导入Foundation框架，提供许多基础�
 <meta property="og:image" content="http://zhangxinmiao.com/2017/06/04/oc-foundation/0.png">
 <meta property="og:image" content="http://zhangxinmiao.com/2017/06/04/oc-foundation/1.png">
 <meta property="og:image" content="http://zhangxinmiao.com/2017/06/04/oc-foundation/2.png">
-<meta property="og:updated_time" content="2017-06-05T09:29:32.000Z">
+<meta property="og:updated_time" content="2017-06-05T09:35:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Objective-C 编程》阅读笔记">
 <meta name="twitter:description" content="关于对象对象和消息
@@ -178,28 +178,28 @@ Xcode 在创建新项目时会自动导入Foundation框架，提供许多基础�
 <li>Objective-C 中的方法都包含一个 <strong>self</strong> 局部变量，self 为指向运行当前方法的对象的<strong>指针</strong></li>
 </ul>
 <h4 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h4><ul>
-<li>属性以 <code>@property</code> 开始，后面是属性的类型和名称。声明属性使类的声明更加简洁，减少许多代码的编写</li>
-</ul>
+<li><p>属性以 <code>@property</code> 开始，后面是属性的类型和名称。声明属性使类的声明更加简洁，减少许多代码的编写</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- @property (nonatomic) float height;</div></pre></td></tr></table></figure>
-<ul>
-<li>在代码中声明的属性的情况下，无需再进行存取方法的编写，因为编译器会根据声明的属性进行存取方法的实现</li>
+</li>
+<li><p>在代码中声明的属性的情况下，无需再进行存取方法的编写，因为编译器会根据声明的属性进行存取方法的实现</p>
+</li>
 <li>用 <code>.</code> 也可以调用存取方法</li>
 </ul>
 <h4 id="类继承"><a href="#类继承" class="headerlink" title="类继承"></a>类继承</h4><ul>
 <li>子类继承父类的实例变量和方法</li>
 <li>子类中可以<strong>覆盖</strong>（override）自父类的方法</li>
-<li>覆盖方法时，子类可通过 <code>super</code> 得到父类的实现</li>
-</ul>
+<li><p>覆盖方法时，子类可通过 <code>super</code> 得到父类的实现</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (float) bodyMassIndex &#123;</div><div class="line">	float noramlBMI = [super bodyMassIndex];</div><div class="line">	return noramlBMI * 0.97;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>当某个对象接收到了某消息，收到的对象将沿着继承链进行查询该方法，直到找到该方法或者一直到继承链的顶端也没有找到，程序将报错</li>
+</li>
+<li><p>当某个对象接收到了某消息，收到的对象将沿着继承链进行查询该方法，直到找到该方法或者一直到继承链的顶端也没有找到，程序将报错</p>
+</li>
 </ul>
 <h4 id="类扩展"><a href="#类扩展" class="headerlink" title="类扩展"></a>类扩展</h4><ul>
-<li>类扩展一般添加在类实现文件中，可在类扩展中声明属性</li>
-</ul>
+<li><p>类扩展一般添加在类实现文件中，可在类扩展中声明属性</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">@interface BNREmployee ()</div><div class="line"></div><div class="line">@property (nonatimoc) unsigned int officeAlamCode;</div><div class="line"></div><div class="line">@end</div><div class="line">@implementation BNREmployee</div><div class="line">...</div></pre></td></tr></table></figure>
-<ul>
-<li>类扩展内声明的属性只能在类内使用，类外不可获取，为<strong>私有变量</strong></li>
+</li>
+<li><p>类扩展内声明的属性只能在类内使用，类外不可获取，为<strong>私有变量</strong></p>
+</li>
 <li>类扩展内科声明私有实例变量</li>
 <li>利用扩展类可添加<strong>私有方法</strong>——在扩展中声明方法并在实现文件中实现即可</li>
 <li>子类无法获取父类的类扩展</li>
@@ -209,26 +209,24 @@ Xcode 在创建新项目时会自动导入Foundation框架，提供许多基础�
 <p><img src="/2017/06/04/oc-foundation/1.png" alt="0"></p>
 </li>
 <li><p><strong>弱引用</strong>可以解决强引用循环问题，具体方法是将双方引用中的一方在声明时添加 <code>weak</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@property (nonatimoc, weak) BNREmployee *holder;</div></pre></td></tr></table></figure>
+<p><img src="/2017/06/04/oc-foundation/2.png" alt="0"></p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@property (nonatimoc, weak) BNREmployee *holder;</div></pre></td></tr></table></figure>
-<p>  <img src="/2017/06/04/oc-foundation/2.png" alt="0"></p>
 <h3 id="Block-对象"><a href="#Block-对象" class="headerlink" title="Block 对象"></a>Block 对象</h3><ul>
-<li>认识 Block 对象，下面是一段 Block 对象代码</li>
-</ul>
+<li><p>认识 Block 对象，下面是一段 Block 对象代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">^ &#123;</div><div class="line">	NSLog(@&quot;this is a block&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>声明 Block 变量时，要给出 Block 对象的返回值以及实参类型</li>
-</ul>
+</li>
+<li><p>声明 Block 变量时，要给出 Block 对象的返回值以及实参类型</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">void (^devowelizer)(id, NSUIInteger, Bool*)</div></pre></td></tr></table></figure>
-<ul>
-<li>当 Block 对象有返回值时，可像调用函数一样调用该对象</li>
-</ul>
+</li>
+<li><p>当 Block 对象有返回值时，可像调用函数一样调用该对象</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">double (^divBlock) (double, double);</div><div class="line"></div><div class="line">    divBlock = ^(double dividend, double divisor) &#123;</div><div class="line">        double quotient = dividend / divisor;</div><div class="line">        return quotient;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    __unused double result = divBlock(1.2, 3.6);</div></pre></td></tr></table></figure>
-<ul>
-<li>在 Block 对象中需要使用 self 时需注意的是，在 A 实例中的 Block对象如果使用了 self，就造成了强引用循环，解决的方法是在 Block 对象外声明一个 <code>_weak</code> 指针，然后通过指针去获取 self，这样就打破了强引用循环</li>
-</ul>
+</li>
+<li><p>在 Block 对象中需要使用 self 时需注意的是，在 A 实例中的 Block对象如果使用了 self，就造成了强引用循环，解决的方法是在 Block 对象外声明一个 <code>_weak</code> 指针，然后通过指针去获取 self，这样就打破了强引用循环</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">_weak A *weakSelf = self;</div><div class="line">myBlock = ^&#123;</div><div class="line">	...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
 
   </div>
 </article>
