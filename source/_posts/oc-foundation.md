@@ -65,3 +65,66 @@ id now;
 }
 ```
 - 当某个对象接收到了某消息，收到的对象将沿着继承链进行查询该方法，直到找到该方法或者一直到继承链的顶端也没有找到，程序将报错
+
+#### 类扩展
+
+- 类扩展一般添加在类实现文件中，可在类扩展中声明属性
+
+```Objective-C
+@interface BNREmployee ()
+
+@property (nonatimoc) unsigned int officeAlamCode;
+
+@end
+@implementation BNREmployee
+...
+```
+- 类扩展内声明的属性只能在类内使用，类外不可获取，为**私有变量**
+- 类扩展内科声明私有实例变量
+- 利用扩展类可添加**私有方法**——在扩展中声明方法并在实现文件中实现即可
+- 子类无法获取父类的类扩展
+
+#### 强引用与弱引用
+
+- A 对象拥有 B 对象，而 B 对象又同时拥有 A 对象，这种互相拥有的所有权关系导致相关对象都无法被释放，这种情况被称之为**强引用循环**，强引用循环是导致内存泄漏的常见原因
+
+  ![0](oc-foundation/1.png)
+
+- **弱引用**可以解决强引用循环问题，具体方法是将双方引用中的一方在声明时添加 `weak`
+
+```Objective-C
+@property (nonatimoc, weak) BNREmployee *holder;
+```
+  ![0](oc-foundation/2.png)
+
+### Block 对象
+
+- 认识 Block 对象，下面是一段 Block 对象代码
+```Objective-C
+^ {
+	NSLog(@"this is a block");
+}
+```
+- 声明 Block 变量时，要给出 Block 对象的返回值以及实参类型
+```Objective-C
+void (^devowelizer)(id, NSUIInteger, Bool*)
+```
+- 当 Block 对象有返回值时，可像调用函数一样调用该对象
+```Objective-C
+double (^divBlock) (double, double);
+
+    divBlock = ^(double dividend, double divisor) {
+        double quotient = dividend / divisor;
+        return quotient;
+    };
+
+    __unused double result = divBlock(1.2, 3.6);
+```
+- 在 Block 对象中需要使用 self 时需注意的是，在 A 实例中的 Block对象如果使用了 self，就造成了强引用循环，解决的方法是在 Block 对象外声明一个 `_weak` 指针，然后通过指针去获取 self，这样就打破了强引用循环
+
+```Objective-C
+_weak A *weakSelf = self;
+myBlock = ^{
+	...
+}
+```
