@@ -19,7 +19,9 @@ Xcode 在创建新项目时会自动导入Foundation框架，提供许多基础�
 Xcode 在创建新项目时会自动导入Foundation框架，提供许多基础类，iOS 以 及 OS X 应用都要使用这些基础类。在 main.m 中可以看到这样的代码：
 12// include 与 import 的区别是：include仅是复制粘贴；而 import 则会让编译器检查是否已经引用过该文件#impo">
 <meta property="og:image" content="http://zhangxinmiao.com/2017/06/04/oc-foundation/0.png">
-<meta property="og:updated_time" content="2017-06-04T12:46:19.000Z">
+<meta property="og:image" content="http://zhangxinmiao.com/2017/06/04/oc-foundation/1.png">
+<meta property="og:image" content="http://zhangxinmiao.com/2017/06/04/oc-foundation/2.png">
+<meta property="og:updated_time" content="2017-06-05T09:24:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Objective-C 编程》阅读笔记">
 <meta name="twitter:description" content="关于对象对象和消息
@@ -111,7 +113,7 @@ Xcode 在创建新项目时会自动导入Foundation框架，提供许多基础�
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#关于对象"><span class="toc-number">1.</span> <span class="toc-text">关于对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#对象和消息"><span class="toc-number">1.1.</span> <span class="toc-text">对象和消息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#对象与内存"><span class="toc-number">1.2.</span> <span class="toc-text">对象与内存</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于类"><span class="toc-number">2.</span> <span class="toc-text">关于类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#类"><span class="toc-number">2.1.</span> <span class="toc-text">类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#属性"><span class="toc-number">2.2.</span> <span class="toc-text">属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类继承"><span class="toc-number">2.3.</span> <span class="toc-text">类继承</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#关于对象"><span class="toc-number">1.</span> <span class="toc-text">关于对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#对象和消息"><span class="toc-number">1.1.</span> <span class="toc-text">对象和消息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#对象与内存"><span class="toc-number">1.2.</span> <span class="toc-text">对象与内存</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于类"><span class="toc-number">2.</span> <span class="toc-text">关于类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#类"><span class="toc-number">2.1.</span> <span class="toc-text">类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#属性"><span class="toc-number">2.2.</span> <span class="toc-text">属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类继承"><span class="toc-number">2.3.</span> <span class="toc-text">类继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类扩展"><span class="toc-number">2.4.</span> <span class="toc-text">类扩展</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#强引用与弱引用"><span class="toc-number">2.5.</span> <span class="toc-text">强引用与弱引用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Block-对象"><span class="toc-number">3.</span> <span class="toc-text">Block 对象</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -192,6 +194,39 @@ Xcode 在创建新项目时会自动导入Foundation框架，提供许多基础�
 <ul>
 <li>当某个对象接收到了某消息，收到的对象将沿着继承链进行查询该方法，直到找到该方法或者一直到继承链的顶端也没有找到，程序将报错</li>
 </ul>
+<h4 id="类扩展"><a href="#类扩展" class="headerlink" title="类扩展"></a>类扩展</h4><ul>
+<li>类扩展一般添加在类实现文件中，可在类扩展中声明属性</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">@interface BNREmployee ()</div><div class="line"></div><div class="line">@property (nonatimoc) unsigned int officeAlamCode;</div><div class="line"></div><div class="line">@end</div><div class="line">@implementation BNREmployee</div><div class="line">...</div></pre></td></tr></table></figure>
+<ul>
+<li>类扩展内声明的属性只能在类内使用，类外不可获取，为<strong>私有变量</strong></li>
+<li>类扩展内科声明私有实例变量</li>
+<li>利用扩展类可添加<strong>私有方法</strong>——在扩展中声明方法并在实现文件中实现即可</li>
+<li>子类无法获取父类的类扩展</li>
+</ul>
+<h4 id="强引用与弱引用"><a href="#强引用与弱引用" class="headerlink" title="强引用与弱引用"></a>强引用与弱引用</h4><ul>
+<li><p>A 对象拥有 B 对象，而 B 对象又同时拥有 A 对象，这种互相拥有的所有权关系导致相关对象都无法被释放，这种情况被称之为<strong>强引用循环</strong>，强引用循环是导致内存泄漏的常见原因</p>
+<p><img src="/2017/06/04/oc-foundation/1.png" alt="0"></p>
+</li>
+<li><p><strong>弱引用</strong>可以解决强引用循环问题，具体方法是将双方引用中的一方在声明时添加 <code>weak</code></p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@property (nonatimoc, weak) BNREmployee *holder;</div></pre></td></tr></table></figure>
+<p>  <img src="/2017/06/04/oc-foundation/2.png" alt="0"></p>
+<h3 id="Block-对象"><a href="#Block-对象" class="headerlink" title="Block 对象"></a>Block 对象</h3><ul>
+<li><p>认识 Block 对象，下面是一段 Block 对象代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">^ &#123;</div><div class="line">	NSLog(@&quot;this is a block&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>声明 Block 变量时，要给出 Block 对象的返回值以及实参类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">void (^devowelizer)(id, NSUIInteger, Bool*)</div></pre></td></tr></table></figure>
+</li>
+<li><p>当 Block 对象有返回值时，可像调用函数一样调用该对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">double (^divBlock) (double, double);</div><div class="line"></div><div class="line">    divBlock = ^(double dividend, double divisor) &#123;</div><div class="line">        double quotient = dividend / divisor;</div><div class="line">        return quotient;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    __unused double result = divBlock(1.2, 3.6);</div></pre></td></tr></table></figure>
+</li>
+<li><p>在 Block 对象中需要使用 self 时需注意的是，在 A 实例中的 Block对象如果使用了 self，就造成了强引用循环，解决的方法是在 Block 对象外声明一个 <code>_weak</code> 指针，然后通过指针去获取 self，这样就打破了强引用循环</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">_weak A *weakSelf = self;</div><div class="line">myBlock = ^&#123;</div><div class="line">	...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
   </div>
 </article>
@@ -218,7 +253,7 @@ Xcode 在创建新项目时会自动导入Foundation框架，提供许多基础�
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#关于对象"><span class="toc-number">1.</span> <span class="toc-text">关于对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#对象和消息"><span class="toc-number">1.1.</span> <span class="toc-text">对象和消息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#对象与内存"><span class="toc-number">1.2.</span> <span class="toc-text">对象与内存</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于类"><span class="toc-number">2.</span> <span class="toc-text">关于类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#类"><span class="toc-number">2.1.</span> <span class="toc-text">类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#属性"><span class="toc-number">2.2.</span> <span class="toc-text">属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类继承"><span class="toc-number">2.3.</span> <span class="toc-text">类继承</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#关于对象"><span class="toc-number">1.</span> <span class="toc-text">关于对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#对象和消息"><span class="toc-number">1.1.</span> <span class="toc-text">对象和消息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#对象与内存"><span class="toc-number">1.2.</span> <span class="toc-text">对象与内存</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于类"><span class="toc-number">2.</span> <span class="toc-text">关于类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#类"><span class="toc-number">2.1.</span> <span class="toc-text">类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#属性"><span class="toc-number">2.2.</span> <span class="toc-text">属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类继承"><span class="toc-number">2.3.</span> <span class="toc-text">类继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类扩展"><span class="toc-number">2.4.</span> <span class="toc-text">类扩展</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#强引用与弱引用"><span class="toc-number">2.5.</span> <span class="toc-text">强引用与弱引用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Block-对象"><span class="toc-number">3.</span> <span class="toc-text">Block 对象</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
