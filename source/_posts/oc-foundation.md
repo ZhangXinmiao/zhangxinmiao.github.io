@@ -45,10 +45,10 @@ id now;
 #### 属性
 
 - 属性以 `@property` 开始，后面是属性的类型和名称。声明属性使类的声明更加简洁，减少许多代码的编写
-
 ```Objective-C
 - @property (nonatomic) float height;
 ```
+
 - 在代码中声明的属性的情况下，无需再进行存取方法的编写，因为编译器会根据声明的属性进行存取方法的实现
 - 用 `.` 也可以调用存取方法
 
@@ -57,7 +57,6 @@ id now;
 - 子类继承父类的实例变量和方法
 - 子类中可以**覆盖**（override）自父类的方法
 - 覆盖方法时，子类可通过 `super` 得到父类的实现
-
 ```Objective-C
 - (float) bodyMassIndex {
 	float noramlBMI = [super bodyMassIndex];
@@ -69,7 +68,6 @@ id now;
 #### 类扩展
 
 - 类扩展一般添加在类实现文件中，可在类扩展中声明属性
-
 ```Objective-C
 @interface BNREmployee ()
 
@@ -91,7 +89,6 @@ id now;
   ![0](oc-foundation/1.png)
 
 - **弱引用**可以解决强引用循环问题，具体方法是将双方引用中的一方在声明时添加 `weak`
-
 ```Objective-C
 @property (nonatimoc, weak) BNREmployee *holder;
 ```
@@ -119,9 +116,10 @@ double (^divBlock) (double, double);
     };
 
     __unused double result = divBlock(1.2, 3.6);
-```
-- 在 Block 对象中需要使用 self 时需注意的是，在 A 实例中的 Block对象如果使用了 self，就造成了强引用循环，解决的方法是在 Block 对象外声明一个 `_weak` 指针，然后通过指针去获取 self，这样就打破了强引用循环
 
+```
+
+- 在 Block 对象中需要使用 self 时需注意的是，在 A 实例中的 Block对象如果使用了 self，就造成了强引用循环，解决的方法是在 Block 对象外声明一个 `_weak` 指针，然后通过指针去获取 self，这样就打破了强引用循环
 ```Objective-C
 _weak A *weakSelf = self;
 myBlock = ^{
