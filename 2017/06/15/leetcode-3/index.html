@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="QuestionGiven a string, find the length of the longest substring without repeating characters.
+ExampleGiven abcabcbb, the answer is abc, which the length is 3.
+Given bbbbb, the answer is b, with the l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetcode-3">
+<meta property="og:url" content="http://zhangxinmiao.com/2017/06/15/leetcode-3/index.html">
+<meta property="og:site_name" content="ZhangXinmiao's blog">
+<meta property="og:description" content="QuestionGiven a string, find the length of the longest substring without repeating characters.
+ExampleGiven abcabcbb, the answer is abc, which the length is 3.
+Given bbbbb, the answer is b, with the l">
+<meta property="og:updated_time" content="2017-06-15T11:39:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="leetcode-3">
+<meta name="twitter:description" content="QuestionGiven a string, find the length of the longest substring without repeating characters.
+ExampleGiven abcabcbb, the answer is abc, which the length is 3.
+Given bbbbb, the answer is b, with the l">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>leetcode-3</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+    <link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+    <!-- jquery -->
+    <script src="/lib/jquery/jquery.min.js"></script>
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/ZhangXinmiao">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2017/06/15/leetcode-9/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://zhangxinmiao.com/2017/06/15/leetcode-3/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://zhangxinmiao.com/2017/06/15/leetcode-3/&text=leetcode-3"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://zhangxinmiao.com/2017/06/15/leetcode-3/&title=leetcode-3"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://zhangxinmiao.com/2017/06/15/leetcode-3/&is_video=false&description=leetcode-3"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=leetcode-3&body=Check out this article: http://zhangxinmiao.com/2017/06/15/leetcode-3/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://zhangxinmiao.com/2017/06/15/leetcode-3/&title=leetcode-3"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://zhangxinmiao.com/2017/06/15/leetcode-3/&title=leetcode-3"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://zhangxinmiao.com/2017/06/15/leetcode-3/&title=leetcode-3"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://zhangxinmiao.com/2017/06/15/leetcode-3/&title=leetcode-3"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://zhangxinmiao.com/2017/06/15/leetcode-3/&name=leetcode-3&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Question"><span class="toc-number">1.</span> <span class="toc-text">Question</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Example"><span class="toc-number">2.</span> <span class="toc-text">Example</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Tip"><span class="toc-number">3.</span> <span class="toc-text">Tip</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Code"><span class="toc-number">4.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        leetcode-3
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ZhangXinmiao's blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-06-15T11:21:52.000Z" itemprop="datePublished">2017-06-15</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/leetcode/">leetcode</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h4 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h4><p>Given a string, find the length of the longest substring without repeating characters.</p>
+<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><p>Given <code>abcabcbb</code>, the answer is <code>abc</code>, which the length is 3.</p>
+<p>Given <code>bbbbb</code>, the answer is <code>b</code>, with the length of 1.</p>
+<p>Given <code>pwwkew</code>, the answer is <code>wke</code>, with the length of 3. Note that the answer must be a substring, <code>pwke</code> is a subsequence and not a substring.</p>
+<h4 id="Tip"><a href="#Tip" class="headerlink" title="Tip"></a>Tip</h4><p>找到给定字符串的最长的无重复子字符串</p>
+<p>令 i 和 j 都指向字符串第一位，理想的情况下 j 会一直向后移，这种情况下最长子串长度就是该字符串长度；每次记录下字符串长度，并且，当发现从某个字符开始重复的时候可以直接将 i 移动到这一位。</p>
+<p>可利用哈希表来确定是否有重复的字符</p>
+<h4 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> n = s.length();</div><div class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> maxLen = <span class="number">0</span>;</div><div class="line">        <span class="keyword">bool</span> exist[<span class="number">256</span>] = &#123; <span class="literal">false</span> &#125;;</div><div class="line">        <span class="keyword">while</span> (j &lt; n) &#123;</div><div class="line">            <span class="keyword">if</span> (exist[s[j]]) &#123;</div><div class="line">                maxLen = max(maxLen, j-i);</div><div class="line">                <span class="keyword">while</span> (s[i] != s[j]) &#123;</div><div class="line">                    exist[s[i]] = <span class="literal">false</span>;</div><div class="line">                    i++;</div><div class="line">                &#125;</div><div class="line">                i++;</div><div class="line">                j++;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                exist[s[j]] = <span class="literal">true</span>;  </div><div class="line">                j++;  </div><div class="line">            &#125;  </div><div class="line">        &#125;  </div><div class="line">        maxLen = max(maxLen, n-i);  </div><div class="line">        <span class="keyword">return</span> maxLen;  </div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/ZhangXinmiao">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Question"><span class="toc-number">1.</span> <span class="toc-text">Question</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Example"><span class="toc-number">2.</span> <span class="toc-text">Example</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Tip"><span class="toc-number">3.</span> <span class="toc-text">Tip</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Code"><span class="toc-number">4.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://zhangxinmiao.com/2017/06/15/leetcode-3/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://zhangxinmiao.com/2017/06/15/leetcode-3/&text=leetcode-3"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://zhangxinmiao.com/2017/06/15/leetcode-3/&title=leetcode-3"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://zhangxinmiao.com/2017/06/15/leetcode-3/&is_video=false&description=leetcode-3"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=leetcode-3&body=Check out this article: http://zhangxinmiao.com/2017/06/15/leetcode-3/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://zhangxinmiao.com/2017/06/15/leetcode-3/&title=leetcode-3"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://zhangxinmiao.com/2017/06/15/leetcode-3/&title=leetcode-3"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://zhangxinmiao.com/2017/06/15/leetcode-3/&title=leetcode-3"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://zhangxinmiao.com/2017/06/15/leetcode-3/&title=leetcode-3"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://zhangxinmiao.com/2017/06/15/leetcode-3/&name=leetcode-3&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick='$("#toc-footer").toggle();return false;'><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick='$("#share-footer").toggle();return false;'><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2017 张鑫淼
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="https://github.com/ZhangXinmiao">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6758d90e17524a26c9e187195678a132";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
