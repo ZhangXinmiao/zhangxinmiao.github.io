@@ -35,7 +35,7 @@ apm install 插件名
 - autocomplete-paths 自动补全路径
 - docblockr 方便快捷的添加块状注释
 - pigments 识别代码中的色号并显示出来
-- copy-filename 像intellege ide 一样，右键拷贝文件路径
+- copy-filename 像intelliJ IDEA 一样，右键拷贝文件路径
 - emmet 更快捷的写html代码的工具 值得一试
 - highlight-selected 高亮双击的变量
 - js-hyperclick cmd+hover 跳转文件或变量函数的定义处
