@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="思路
+获取移动设备的摄像头
+截取视频流并展示在网页上
+在视频画面上渲染图像
+分析源，并识别出特定的Marker
+将模型展示在Marker之上
+
+获取摄像头WebRTC 技术WebarRTC主要包含3部分：
+
+MediaStream
+RTCPeerConnection
+RTCDataChannel这里借助于getUserMedia来获取MediaStream
+
+MDN：https://develop">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于Web的AR学习">
+<meta property="og:url" content="http://zhangxinmiao.com/2018/01/28/web-ar/index.html">
+<meta property="og:site_name" content="ZhangXinmiao's blog">
+<meta property="og:description" content="思路
+获取移动设备的摄像头
+截取视频流并展示在网页上
+在视频画面上渲染图像
+分析源，并识别出特定的Marker
+将模型展示在Marker之上
+
+获取摄像头WebRTC 技术WebarRTC主要包含3部分：
+
+MediaStream
+RTCPeerConnection
+RTCDataChannel这里借助于getUserMedia来获取MediaStream
+
+MDN：https://develop">
+<meta property="og:image" content="http://zhangxinmiao.com/2018/01/28/web-ar/getUserMedia.png">
+<meta property="og:updated_time" content="2018-02-05T12:02:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于Web的AR学习">
+<meta name="twitter:description" content="思路
+获取移动设备的摄像头
+截取视频流并展示在网页上
+在视频画面上渲染图像
+分析源，并识别出特定的Marker
+将模型展示在Marker之上
+
+获取摄像头WebRTC 技术WebarRTC主要包含3部分：
+
+MediaStream
+RTCPeerConnection
+RTCDataChannel这里借助于getUserMedia来获取MediaStream
+
+MDN：https://develop">
+<meta name="twitter:image" content="http://zhangxinmiao.com/2018/01/28/web-ar/getUserMedia.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>基于Web的AR学习</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+    <link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+    <!-- jquery -->
+    <script src="/lib/jquery/jquery.min.js"></script>
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/ZhangXinmiao">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2017/11/09/margin-detail/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://zhangxinmiao.com/2018/01/28/web-ar/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://zhangxinmiao.com/2018/01/28/web-ar/&text=基于Web的AR学习"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://zhangxinmiao.com/2018/01/28/web-ar/&title=基于Web的AR学习"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://zhangxinmiao.com/2018/01/28/web-ar/&is_video=false&description=基于Web的AR学习"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=基于Web的AR学习&body=Check out this article: http://zhangxinmiao.com/2018/01/28/web-ar/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://zhangxinmiao.com/2018/01/28/web-ar/&title=基于Web的AR学习"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://zhangxinmiao.com/2018/01/28/web-ar/&title=基于Web的AR学习"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://zhangxinmiao.com/2018/01/28/web-ar/&title=基于Web的AR学习"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://zhangxinmiao.com/2018/01/28/web-ar/&title=基于Web的AR学习"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://zhangxinmiao.com/2018/01/28/web-ar/&name=基于Web的AR学习&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#思路"><span class="toc-number">1.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取摄像头"><span class="toc-number">2.</span> <span class="toc-text">获取摄像头</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#WebRTC-技术"><span class="toc-number">2.1.</span> <span class="toc-text">WebRTC 技术</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#example"><span class="toc-number">2.2.</span> <span class="toc-text">example</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#处理兼容"><span class="toc-number">2.3.</span> <span class="toc-text">处理兼容</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#需引入的库"><span class="toc-number">2.4.</span> <span class="toc-text">需引入的库</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#几种模型"><span class="toc-number">2.5.</span> <span class="toc-text">几种模型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#demo"><span class="toc-number">2.6.</span> <span class="toc-text">demo</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#参考"><span class="toc-number">2.7.</span> <span class="toc-text">参考</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        基于Web的AR学习
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ZhangXinmiao's blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-01-28T08:53:55.000Z" itemprop="datePublished">2018-01-28</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/AR/">AR</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><ul>
+<li>获取移动设备的摄像头</li>
+<li>截取视频流并展示在网页上</li>
+<li>在视频画面上渲染图像</li>
+<li>分析源，并识别出特定的Marker</li>
+<li>将模型展示在Marker之上</li>
+</ul>
+<h4 id="获取摄像头"><a href="#获取摄像头" class="headerlink" title="获取摄像头"></a>获取摄像头</h4><h5 id="WebRTC-技术"><a href="#WebRTC-技术" class="headerlink" title="WebRTC 技术"></a>WebRTC 技术</h5><p>WebarRTC主要包含3部分：</p>
+<ul>
+<li>MediaStream</li>
+<li>RTCPeerConnection</li>
+<li>RTCDataChannel<br>这里借助于getUserMedia来获取MediaStream</li>
+</ul>
+<p>MDN：<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/WebRTC_API" target="_blank" rel="external">https://developer.mozilla.org/zh-CN/docs/Web/API/WebRTC_API</a></p>
+<h5 id="example"><a href="#example" class="headerlink" title="example"></a>example</h5><p>在网页上获取截图：<a href="https://github.com/mdn/samples-server/tree/master/s/webrtc-capturestill" target="_blank" rel="external">https://github.com/mdn/samples-server/tree/master/s/webrtc-capturestill</a></p>
+<h5 id="处理兼容"><a href="#处理兼容" class="headerlink" title="处理兼容"></a>处理兼容</h5><p><img src="/2018/01/28/web-ar/getUserMedia.png" alt="getUserMedia"></p>
+<p>*chrome47版本后只支持https页面拉起摄像头</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">navigator.getMedia = ( navigator.getUserMedia ||</div><div class="line">                       navigator.webkitGetUserMedia ||</div><div class="line">                       navigator.mozGetUserMedia ||</div><div class="line">                       navigator.msGetUserMedia);</div></pre></td></tr></table></figure>
+<h5 id="需引入的库"><a href="#需引入的库" class="headerlink" title="需引入的库"></a>需引入的库</h5><p>这里采用了artoolkit，<br>artoolkit是个相对比较成熟的虚拟现实库：<br><a href="https://archive.artoolkit.org/" target="_blank" rel="external">artoolkit</a></p>
+<h5 id="几种模型"><a href="#几种模型" class="headerlink" title="几种模型"></a>几种模型</h5><ul>
+<li>.mmd —— MMDLoader</li>
+<li>.obj —— OBJLoader</li>
+<li>.mtl —— MTLLoader</li>
+</ul>
+<h5 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">window</span>.ARThreeOnLoad = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">        ARController.getUserMediaThreeScene(&#123;<span class="attr">maxARVideoSize</span>: <span class="number">320</span>, <span class="attr">cameraParam</span>: <span class="string">'./camera_para-iPhone.dat'</span>, <span class="attr">facing</span>: &#123; <span class="attr">exact</span>: <span class="string">'environment'</span>&#125;,</div><div class="line">            <span class="attr">onSuccess</span>: <span class="function"><span class="keyword">function</span>(<span class="params">arScene, arController, arCamera</span>) </span>&#123;</div><div class="line"></div><div class="line">                <span class="built_in">document</span>.body.className = arController.orientation;</div><div class="line"></div><div class="line">                <span class="keyword">var</span> renderer = <span class="keyword">new</span> THREE.WebGLRenderer(&#123;<span class="attr">antialias</span>: <span class="literal">true</span>&#125;);</div><div class="line">                <span class="keyword">if</span> (arController.orientation === <span class="string">'portrait'</span>) &#123;</div><div class="line">                    <span class="keyword">var</span> w = (<span class="built_in">window</span>.innerWidth / arController.videoHeight) * arController.videoWidth;</div><div class="line">                    <span class="keyword">var</span> h = <span class="built_in">window</span>.innerWidth;</div><div class="line">                    renderer.setSize(w, h);</div><div class="line">                    renderer.domElement.style.paddingBottom = (w-h) + <span class="string">'px'</span>;</div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    <span class="keyword">if</span> (<span class="regexp">/Android|mobile|iPad|iPhone/i</span>.test(navigator.userAgent)) &#123;</div><div class="line">                        renderer.setSize(<span class="built_in">window</span>.innerWidth, (<span class="built_in">window</span>.innerWidth / arController.videoWidth) * arController.videoHeight);</div><div class="line">                    &#125; <span class="keyword">else</span> &#123;</div><div class="line">                        renderer.setSize(arController.videoWidth, arController.videoHeight);</div><div class="line">                        <span class="built_in">document</span>.body.className += <span class="string">' desktop'</span>;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                <span class="built_in">document</span>.body.insertBefore(renderer.domElement, <span class="built_in">document</span>.body.firstChild);</div><div class="line"></div><div class="line"></div><div class="line">                <span class="comment">// Create a couple of lights for our AR scene.</span></div><div class="line">                <span class="keyword">var</span> light = <span class="keyword">new</span> THREE.PointLight(<span class="number">0xffffff</span>);</div><div class="line">                light.position.set(<span class="number">40</span>, <span class="number">40</span>, <span class="number">40</span>);</div><div class="line">                arScene.scene.add(light);</div><div class="line"></div><div class="line">                <span class="keyword">var</span> light = <span class="keyword">new</span> THREE.PointLight(<span class="number">0xff8800</span>);</div><div class="line">                light.position.set(<span class="number">-40</span>, <span class="number">-20</span>, <span class="number">-30</span>);</div><div class="line">                arScene.scene.add(light);</div><div class="line"></div><div class="line"></div><div class="line">                <span class="keyword">var</span> markerObject3D = <span class="keyword">new</span> THREE.Object3D()</div><div class="line">                arScene.scene.add(markerObject3D);</div><div class="line"></div><div class="line"></div><div class="line">                <span class="keyword">var</span> mtlLoader = <span class="keyword">new</span> THREE.MTLLoader();</div><div class="line">                mtlLoader.setPath(<span class="string">'/'</span>);</div><div class="line">                mtlLoader.load(<span class="string">'final-diandiandian.mtl'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">materials</span>) </span>&#123;</div><div class="line"></div><div class="line">                    materials.preload();</div><div class="line"></div><div class="line">                    <span class="keyword">var</span> objLoader = <span class="keyword">new</span> THREE.OBJLoader();</div><div class="line">                    objLoader.setMaterials(materials);</div><div class="line">                    objLoader.setPath(<span class="string">'/'</span>);</div><div class="line">                    objLoader.load(<span class="string">'final-diandiandian.obj'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">object</span>) </span>&#123;</div><div class="line">                        object.scale.set(<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>).multiplyScalar(<span class="number">1</span> / <span class="number">20</span>);</div><div class="line">                        object.rotation.x = <span class="built_in">Math</span>.PI / <span class="number">2</span>;</div><div class="line">                        markerObject3D.add(object);</div><div class="line">                    &#125;, onProgress, onError);</div><div class="line"></div><div class="line">                &#125;);</div><div class="line"></div><div class="line">                <span class="function"><span class="keyword">function</span> <span class="title">onProgress</span>(<span class="params">xhr</span>) </span>&#123;</div><div class="line">                    <span class="built_in">console</span>.log( ( xhr.loaded / xhr.total * <span class="number">100</span> ) + <span class="string">'% loaded'</span> );</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                <span class="function"><span class="keyword">function</span> <span class="title">onError</span>(<span class="params"></span>) </span>&#123;</div><div class="line">                    <span class="built_in">console</span>.log( <span class="string">'An error happened'</span> );</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                <span class="keyword">var</span> flag = <span class="number">1</span>;</div><div class="line"></div><div class="line">								<span class="comment">// 添加事件监听， 转动坐标轴</span></div><div class="line">                renderer.domElement.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">ev</span>) </span>&#123;</div><div class="line">                    markerObject3D.rotation.z= flag * <span class="built_in">Math</span>.PI/<span class="number">2</span>;</div><div class="line">                    <span class="keyword">if</span>(flag &gt; <span class="number">4</span>) &#123;</div><div class="line">                        <span class="keyword">var</span> imgNode=<span class="built_in">document</span>.createElement(<span class="string">"IMG"</span>);</div><div class="line">                        imgNode.src = <span class="string">'./red.png'</span>;</div><div class="line">                        imgNode.className = <span class="string">'redbag'</span>;</div><div class="line">                        <span class="built_in">document</span>.body.appendChild(imgNode);</div><div class="line">                    &#125; <span class="keyword">else</span> &#123;</div><div class="line">                        flag++;</div><div class="line">                    &#125;</div><div class="line">                &#125;, <span class="literal">false</span>);</div><div class="line"></div><div class="line">                arController.loadMarker(<span class="string">'meituan.patt'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">markerId</span>) </span>&#123;</div><div class="line">                    <span class="keyword">var</span> markerRoot = arController.createThreeMarker(markerId);</div><div class="line">                    markerRoot.add(markerObject3D);</div><div class="line">                    arScene.scene.add(markerRoot);</div><div class="line">                &#125;);</div><div class="line"></div><div class="line"></div><div class="line">                <span class="keyword">var</span> tick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">                    arScene.process();</div><div class="line"></div><div class="line">                    arScene.renderOn(renderer);</div><div class="line">                    requestAnimationFrame(tick);</div><div class="line">                &#125;;</div><div class="line"></div><div class="line">                tick();</div><div class="line"></div><div class="line">            &#125;&#125;);</div><div class="line"></div><div class="line">        <span class="keyword">delete</span> <span class="built_in">window</span>.ARThreeOnLoad;</div><div class="line"></div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.ARController &amp;&amp; ARController.getUserMediaThreeScene) &#123;</div><div class="line">        ARThreeOnLoad();</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h5 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h5><ul>
+<li><a href="http://tgideas.qq.com/webplat/info/news_version3/804/7104/7106/m5723/201612/537832.shtml" target="_blank" rel="external">Web前端也能做的AR互动</a></li>
+<li><a href="https://aotu.io/notes/2017/03/24/webar/index.html" target="_blank" rel="external">实现一个简单但有趣的AR效果（Web）</a></li>
+<li><a href="https://medium.com/arjs/augmented-reality-in-10-lines-of-html-4e193ea9fdbf" target="_blank" rel="external">Augmented Reality in 10 Lines of HTML</a></li>
+</ul>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/ZhangXinmiao">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#思路"><span class="toc-number">1.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取摄像头"><span class="toc-number">2.</span> <span class="toc-text">获取摄像头</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#WebRTC-技术"><span class="toc-number">2.1.</span> <span class="toc-text">WebRTC 技术</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#example"><span class="toc-number">2.2.</span> <span class="toc-text">example</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#处理兼容"><span class="toc-number">2.3.</span> <span class="toc-text">处理兼容</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#需引入的库"><span class="toc-number">2.4.</span> <span class="toc-text">需引入的库</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#几种模型"><span class="toc-number">2.5.</span> <span class="toc-text">几种模型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#demo"><span class="toc-number">2.6.</span> <span class="toc-text">demo</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#参考"><span class="toc-number">2.7.</span> <span class="toc-text">参考</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://zhangxinmiao.com/2018/01/28/web-ar/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://zhangxinmiao.com/2018/01/28/web-ar/&text=基于Web的AR学习"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://zhangxinmiao.com/2018/01/28/web-ar/&title=基于Web的AR学习"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://zhangxinmiao.com/2018/01/28/web-ar/&is_video=false&description=基于Web的AR学习"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=基于Web的AR学习&body=Check out this article: http://zhangxinmiao.com/2018/01/28/web-ar/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://zhangxinmiao.com/2018/01/28/web-ar/&title=基于Web的AR学习"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://zhangxinmiao.com/2018/01/28/web-ar/&title=基于Web的AR学习"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://zhangxinmiao.com/2018/01/28/web-ar/&title=基于Web的AR学习"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://zhangxinmiao.com/2018/01/28/web-ar/&title=基于Web的AR学习"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://zhangxinmiao.com/2018/01/28/web-ar/&name=基于Web的AR学习&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick='$("#toc-footer").toggle();return false;'><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick='$("#share-footer").toggle();return false;'><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 张鑫淼
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="https://github.com/ZhangXinmiao">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6758d90e17524a26c9e187195678a132";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
