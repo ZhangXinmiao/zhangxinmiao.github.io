@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="项目结构
+译自https://github.com/vuejs/vue/blob/dev/.github/CONTRIBUTING.md的 Project Structure 部分
+
+
+script: 包含构建相关的脚本和配置文件，在大多数情况下无需去了解。然而，在你自己了解一下的文件时将变得十分有帮助
+script/alias.js: 导出所有源代码和测试文件中用到的别名的模块
+script/c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue 源码学习">
+<meta property="og:url" content="http://zhangxinmiao.com/2018/03/27/vue-sourcecode/index.html">
+<meta property="og:site_name" content="ZhangXinmiao's blog">
+<meta property="og:description" content="项目结构
+译自https://github.com/vuejs/vue/blob/dev/.github/CONTRIBUTING.md的 Project Structure 部分
+
+
+script: 包含构建相关的脚本和配置文件，在大多数情况下无需去了解。然而，在你自己了解一下的文件时将变得十分有帮助
+script/alias.js: 导出所有源代码和测试文件中用到的别名的模块
+script/c">
+<meta property="og:image" content="http://zhangxinmiao.com/2018/03/27/vue-sourcecode/vue0.jpg">
+<meta property="og:image" content="http://zhangxinmiao.com/2018/03/27/vue-sourcecode/vue1.jpg">
+<meta property="og:image" content="http://zhangxinmiao.com/2018/03/27/vue-sourcecode/vue2.jpg">
+<meta property="og:image" content="http://zhangxinmiao.com/2018/03/27/vue-sourcecode/vue3.jpg">
+<meta property="og:updated_time" content="2018-03-27T12:23:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue 源码学习">
+<meta name="twitter:description" content="项目结构
+译自https://github.com/vuejs/vue/blob/dev/.github/CONTRIBUTING.md的 Project Structure 部分
+
+
+script: 包含构建相关的脚本和配置文件，在大多数情况下无需去了解。然而，在你自己了解一下的文件时将变得十分有帮助
+script/alias.js: 导出所有源代码和测试文件中用到的别名的模块
+script/c">
+<meta name="twitter:image" content="http://zhangxinmiao.com/2018/03/27/vue-sourcecode/vue0.jpg">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Vue 源码学习</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+    <link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+    <!-- jquery -->
+    <script src="/lib/jquery/jquery.min.js"></script>
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/ZhangXinmiao">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2018/01/28/web-ar/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://zhangxinmiao.com/2018/03/27/vue-sourcecode/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://zhangxinmiao.com/2018/03/27/vue-sourcecode/&text=Vue 源码学习"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://zhangxinmiao.com/2018/03/27/vue-sourcecode/&title=Vue 源码学习"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://zhangxinmiao.com/2018/03/27/vue-sourcecode/&is_video=false&description=Vue 源码学习"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Vue 源码学习&body=Check out this article: http://zhangxinmiao.com/2018/03/27/vue-sourcecode/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://zhangxinmiao.com/2018/03/27/vue-sourcecode/&title=Vue 源码学习"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://zhangxinmiao.com/2018/03/27/vue-sourcecode/&title=Vue 源码学习"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://zhangxinmiao.com/2018/03/27/vue-sourcecode/&title=Vue 源码学习"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://zhangxinmiao.com/2018/03/27/vue-sourcecode/&title=Vue 源码学习"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://zhangxinmiao.com/2018/03/27/vue-sourcecode/&name=Vue 源码学习&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#项目结构"><span class="toc-number">1.</span> <span class="toc-text">项目结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Vue-构造函数"><span class="toc-number">2.</span> <span class="toc-text">Vue 构造函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#从-package-json-入手"><span class="toc-number">2.1.</span> <span class="toc-text">从 package.json 入手</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#按部就班的查找线索"><span class="toc-number">2.2.</span> <span class="toc-text">按部就班的查找线索</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#响应式原理"><span class="toc-number">3.</span> <span class="toc-text">响应式原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-number">3.1.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Vue 源码学习
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ZhangXinmiao's blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-03-27T11:43:05.000Z" itemprop="datePublished">2018-03-27</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Vue/">Vue</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h3 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h3><blockquote>
+<p>译自<a href="https://github.com/vuejs/vue/blob/dev/.github/CONTRIBUTING.md的" target="_blank" rel="external">https://github.com/vuejs/vue/blob/dev/.github/CONTRIBUTING.md的</a> Project Structure 部分</p>
+</blockquote>
+<ul>
+<li>script: 包含构建相关的脚本和配置文件，在大多数情况下无需去了解。然而，在你自己了解一下的文件时将变得十分有帮助<ul>
+<li>script/alias.js: 导出所有源代码和测试文件中用到的别名的模块</li>
+<li>script/config.js: 包含所有在dist/中的文件的构建配置。如果想要找到dist文件的源代码入口文件可以检查这个文件</li>
+</ul>
+</li>
+<li>dist: 包含用于分发的构建文件，注意这个目录词语在发布的时候才会更新</li>
+<li>flow: 包含 Flow 的类型声明，这些声明在全局被加载并且你可以看到他们在源代码的类型注释中</li>
+<li>packages: 包含 vue-server-renderer 和 vue-template-compiler，是作为单独的 npm 包发布的，他们由源代码自动的生成且通常和主要的vue包有着相同的版本</li>
+<li>test: 包含所有的测试，单元测试是用 Jasmine 框架编写的；用 Karma 框架跑的， e2e测试是为Nightwatch.js编写和运行的。</li>
+<li>src: 很明显，包含源代码，代码标准是 ES2015 类型注释是 Flow<ul>
+<li>compiler: 包含编译 template-to-renderer-function 的代码</li>
+<li>core: 包含通用的、平台无关的运行时代码<ul>
+<li>observer: 包含与响应系统相关的代码</li>
+<li>vdom: 包含与创建 vdom 元素和 patch 相关的代码</li>
+<li>instance: 包含 Vue 实例 constructor 和原型方法</li>
+<li>global-api: 全局api</li>
+<li>components: 通用抽象组件，目前只有 keep-alive一个</li>
+</ul>
+</li>
+<li>server: 包含服务器端渲染的相关代码</li>
+<li>platforms: 包含平台特定的代码</li>
+<li>sfc: 包含单文件组件分析逻辑，在 vue-template-compiler 包中有用到</li>
+<li>shared:</li>
+<li>types: 包含 typescript  类型定义<ul>
+<li>test: 类型定义测试</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Vue-构造函数"><a href="#Vue-构造函数" class="headerlink" title="Vue 构造函数"></a>Vue 构造函数</h3><h4 id="从-package-json-入手"><a href="#从-package-json-入手" class="headerlink" title="从 package.json 入手"></a>从 package.json 入手</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">"dev"</span>: <span class="string">"rollup -w -c scripts/config.js --environment TARGET:web-full-dev"</span></div></pre></td></tr></table></figure>
+<h4 id="按部就班的查找线索"><a href="#按部就班的查找线索" class="headerlink" title="按部就班的查找线索"></a>按部就班的查找线索</h4><p>那么就去找到 config.js 找到配置文件中的入口与出口</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Runtime+compiler development build (Browser)</span></div><div class="line"><span class="string">'web-full-dev'</span>: &#123;</div><div class="line">  <span class="attr">entry</span>: resolve(<span class="string">'web/entry-runtime-with-compiler.js'</span>),</div><div class="line">  <span class="attr">dest</span>: resolve(<span class="string">'dist/vue.js'</span>),</div><div class="line">  <span class="attr">format</span>: <span class="string">'umd'</span>,</div><div class="line">  <span class="attr">env</span>: <span class="string">'development'</span>,</div><div class="line">  <span class="attr">alias</span>: &#123; <span class="attr">he</span>: <span class="string">'./entity-decoder'</span> &#125;,</div><div class="line">  banner</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<p>可以看到 entry入口文件打包后就是vue.js 直接去找 /src/platforms/web/entry-runtime-with-compiler.js文件</p>
+<p>找到该文件 可以看到引入了这个文件./runtime/index</p>
+<p>下图是梳理过的文件引用关系：</p>
+<p><img src="/2018/03/27/vue-sourcecode/vue0.jpg" alt=""></p>
+<p>instance/index.js 文件中就是Vue最初声明的地方了，代码如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; initMixin &#125; <span class="keyword">from</span> <span class="string">'./init'</span></div><div class="line"><span class="keyword">import</span> &#123; stateMixin &#125; <span class="keyword">from</span> <span class="string">'./state'</span></div><div class="line"><span class="keyword">import</span> &#123; renderMixin &#125; <span class="keyword">from</span> <span class="string">'./render'</span></div><div class="line"><span class="keyword">import</span> &#123; eventsMixin &#125; <span class="keyword">from</span> <span class="string">'./events'</span></div><div class="line"><span class="keyword">import</span> &#123; lifecycleMixin &#125; <span class="keyword">from</span> <span class="string">'./lifecycle'</span></div><div class="line"><span class="keyword">import</span> &#123; warn &#125; <span class="keyword">from</span> <span class="string">'../util/index'</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Vue</span> (<span class="params">options</span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">'production'</span> &amp;&amp;</div><div class="line">    !(<span class="keyword">this</span> <span class="keyword">instanceof</span> Vue)</div><div class="line">  ) &#123;</div><div class="line">    warn(<span class="string">'Vue is a constructor and should be called with the `new` keyword'</span>)</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">this</span>._init(options)</div><div class="line">&#125;</div><div class="line"></div><div class="line">initMixin(Vue)</div><div class="line">stateMixin(Vue)</div><div class="line">eventsMixin(Vue)</div><div class="line">lifecycleMixin(Vue)</div><div class="line">renderMixin(Vue)</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> Vue</div></pre></td></tr></table></figure>
+<p>这段代码中引入了一些依赖的函数，并且在这里 Vue 实例被挂载了方法和属性并导出到 /src/core/index.js 中继续被处理</p>
+<p>以下是/src/core/index.js文件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'./instance/index'</span></div><div class="line"><span class="keyword">import</span> &#123; initGlobalAPI &#125; <span class="keyword">from</span> <span class="string">'./global-api/index'</span></div><div class="line"><span class="keyword">import</span> &#123; isServerRendering &#125; <span class="keyword">from</span> <span class="string">'core/util/env'</span></div><div class="line"></div><div class="line">initGlobalAPI(Vue)</div><div class="line"></div><div class="line"><span class="built_in">Object</span>.defineProperty(Vue.prototype, <span class="string">'$isServer'</span>, &#123;</div><div class="line">  <span class="attr">get</span>: isServerRendering</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="built_in">Object</span>.defineProperty(Vue.prototype, <span class="string">'$ssrContext'</span>, &#123;</div><div class="line">  get () &#123;</div><div class="line">    <span class="comment">/* istanbul ignore next */</span></div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.$vnode &amp;&amp; <span class="keyword">this</span>.$vnode.ssrContext</div><div class="line">  &#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line">Vue.version = <span class="string">'__VERSION__'</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> Vue</div></pre></td></tr></table></figure>
+<p>5行 initGlobalAPI(Vue) Vue被作为参数传入initGlobalAPI方法中</p>
+<p>7、11行 分别给Vue.prototype挂载$isServer和$ssrContext属性</p>
+<p>18行 最后 给Vue对象添加version版本属性</p>
+<p>到现在，Vue已经具有了一下的方法和属性</p>
+<p><img src="/2018/03/27/vue-sourcecode/vue1.jpg" alt=""></p>
+<p>此时可以看看 Vue.prototype._init(option)函数究竟做了什么</p>
+<p>梳理结果如下</p>
+<p><img src="/2018/03/27/vue-sourcecode/vue2.jpg" alt=""></p>
+<h3 id="响应式原理"><a href="#响应式原理" class="headerlink" title="响应式原理"></a>响应式原理</h3><p>在答题了解了 Vue 的初始化过程都做了哪些工作后，终于可以接近响应式原理了(激动)</p>
+<p>在上一张图的红圈部分需要格外注意的是 initState(vm) 方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">initState</span> (<span class="params">vm: Component</span>) </span>&#123;</div><div class="line">  vm._watchers = []</div><div class="line">  <span class="keyword">const</span> opts = vm.$options</div><div class="line">  <span class="keyword">if</span> (opts.props) initProps(vm, opts.props)</div><div class="line">  <span class="keyword">if</span> (opts.methods) initMethods(vm, opts.methods)</div><div class="line">  <span class="keyword">if</span> (opts.data) &#123;</div><div class="line">    initData(vm)</div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    observe(vm._data = &#123;&#125;, <span class="literal">true</span> <span class="comment">/* asRootData */</span>)</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">if</span> (opts.computed) initComputed(vm, opts.computed)</div><div class="line">  <span class="keyword">if</span> (opts.watch &amp;&amp; opts.watch !== nativeWatch) &#123;</div><div class="line">    initWatch(vm, opts.watch)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这段代码的重点是 7 行的 initData(vm) 函数 找到该函数 可以看到关键的一句代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">observe(data, <span class="literal">true</span> <span class="comment">/* asRootData */</span>)</div></pre></td></tr></table></figure>
+<p>这里的 observe 函数中 实例化了一个 Observe 类，这个类就是 Vue 实现响应式原理的三个重要的类之一(Observe、Dep、Watcher)</p>
+<p>首先找到 Observe 类，去看看他里面实现的是什么样的功能</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Observer class that are attached to each observed</div><div class="line"> * object. Once attached, the observer converts target</div><div class="line"> * object's property keys into getter/setters that</div><div class="line"> * collect dependencies and dispatches updates.</div><div class="line"> */</div><div class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">Observer</span> </span>&#123;</div><div class="line">  value: any;</div><div class="line">  dep: Dep;</div><div class="line">  vmCount: number; <span class="comment">// number of vms that has this object as root $data</span></div><div class="line"></div><div class="line">  <span class="keyword">constructor</span> (value: any) &#123;</div><div class="line">    <span class="keyword">this</span>.value = value</div><div class="line">    <span class="keyword">this</span>.dep = <span class="keyword">new</span> Dep()</div><div class="line">    <span class="keyword">this</span>.vmCount = <span class="number">0</span></div><div class="line">    def(value, <span class="string">'__ob__'</span>, <span class="keyword">this</span>)</div><div class="line">    <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(value)) &#123;</div><div class="line">      <span class="keyword">const</span> augment = hasProto</div><div class="line">        ? protoAugment</div><div class="line">        : copyAugment</div><div class="line">      augment(value, arrayMethods, arrayKeys)</div><div class="line">      <span class="keyword">this</span>.observeArray(value)</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      <span class="keyword">this</span>.walk(value)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line">   * Walk through each property and convert them into</div><div class="line">   * getter/setters. This method should only be called when</div><div class="line">   * value type is Object.</div><div class="line">   */</div><div class="line">  walk (obj: <span class="built_in">Object</span>) &#123;</div><div class="line">    <span class="keyword">const</span> keys = <span class="built_in">Object</span>.keys(obj)</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; keys.length; i++) &#123;</div><div class="line">      defineReactive(obj, keys[i], obj[keys[i]])</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">/**</span></div><div class="line">   * Observe a list of Array items.</div><div class="line">   */</div><div class="line">  observeArray (items: <span class="built_in">Array</span>&lt;any&gt;) &#123;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, l = items.length; i &lt; l; i++) &#123;</div><div class="line">      observe(items[i])</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>walk函数中对data进行遍历，调用defineReactive函数；defineReactive接受object、key以及value作为参数</p>
+<p>defineReactive函数代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Define a reactive property on an Object.</div><div class="line"> */</div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">defineReactive</span> (<span class="params"></span></span></div><div class="line">  obj: Object,</div><div class="line">  key: string,</div><div class="line">  val: any,</div><div class="line">  customSetter?: ?Function,</div><div class="line">  shallow?: boolean</div><div class="line">) &#123;</div><div class="line">  <span class="keyword">const</span> dep = <span class="keyword">new</span> Dep()</div><div class="line"></div><div class="line">  <span class="keyword">const</span> property = <span class="built_in">Object</span>.getOwnPropertyDescriptor(obj, key)</div><div class="line">  <span class="keyword">if</span> (property &amp;&amp; property.configurable === <span class="literal">false</span>) &#123;</div><div class="line">    <span class="keyword">return</span></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// cater for pre-defined getter/setters</span></div><div class="line">  <span class="keyword">const</span> getter = property &amp;&amp; property.get</div><div class="line">  <span class="keyword">const</span> setter = property &amp;&amp; property.set</div><div class="line"></div><div class="line">  <span class="keyword">let</span> childOb = !shallow &amp;&amp; observe(val)</div><div class="line">  <span class="built_in">Object</span>.defineProperty(obj, key, &#123;</div><div class="line">    <span class="attr">enumerable</span>: <span class="literal">true</span>,</div><div class="line">    <span class="attr">configurable</span>: <span class="literal">true</span>,</div><div class="line">    <span class="attr">get</span>: <span class="function"><span class="keyword">function</span> <span class="title">reactiveGetter</span> (<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="keyword">const</span> value = getter ? getter.call(obj) : val</div><div class="line">      <span class="keyword">if</span> (Dep.target) &#123;</div><div class="line">        dep.depend()</div><div class="line">        <span class="keyword">if</span> (childOb) &#123;</div><div class="line">          childOb.dep.depend()</div><div class="line">          <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(value)) &#123;</div><div class="line">            dependArray(value)</div><div class="line">          &#125;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">return</span> value</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">set</span>: <span class="function"><span class="keyword">function</span> <span class="title">reactiveSetter</span> (<span class="params">newVal</span>) </span>&#123;</div><div class="line">      <span class="keyword">const</span> value = getter ? getter.call(obj) : val</div><div class="line">      <span class="comment">/* eslint-disable no-self-compare */</span></div><div class="line">      <span class="keyword">if</span> (newVal === value || (newVal !== newVal &amp;&amp; value !== value)) &#123;</div><div class="line">        <span class="keyword">return</span></div><div class="line">      &#125;</div><div class="line">      <span class="comment">/* eslint-enable no-self-compare */</span></div><div class="line">      <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">'production'</span> &amp;&amp; customSetter) &#123;</div><div class="line">        customSetter()</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">if</span> (setter) &#123;</div><div class="line">        setter.call(obj, newVal)</div><div class="line">      &#125; <span class="keyword">else</span> &#123;</div><div class="line">        val = newVal</div><div class="line">      &#125;</div><div class="line">      childOb = !shallow &amp;&amp; observe(newVal)</div><div class="line">      dep.notify()</div><div class="line">    &#125;</div><div class="line">  &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看到，defineReactive主要的工作是将data的属性转换为访问器属性</p>
+<p>getter方法中的dep.depend()是在添加监听</p>
+<p>setter方法中的dep.notify就是在更新视图</p>
+<p>在这里可以看到 出现了Dep 类</p>
+<p>具体看 Dep 的声明代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* @flow */</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> type Watcher <span class="keyword">from</span> <span class="string">'./watcher'</span></div><div class="line"><span class="keyword">import</span> &#123; remove &#125; <span class="keyword">from</span> <span class="string">'../util/index'</span></div><div class="line"></div><div class="line"><span class="keyword">let</span> uid = <span class="number">0</span></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * A dep is an observable that can have multiple</div><div class="line"> * directives subscribing to it.</div><div class="line"> */</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Dep</span> </span>&#123;</div><div class="line">  <span class="keyword">static</span> target: ?Watcher;</div><div class="line">  id: number;</div><div class="line">  subs: <span class="built_in">Array</span>&lt;Watcher&gt;;</div><div class="line"></div><div class="line">  <span class="keyword">constructor</span> () &#123;</div><div class="line">    <span class="keyword">this</span>.id = uid++</div><div class="line">    <span class="keyword">this</span>.subs = []</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  addSub (sub: Watcher) &#123;</div><div class="line">    <span class="keyword">this</span>.subs.push(sub)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  removeSub (sub: Watcher) &#123;</div><div class="line">    remove(<span class="keyword">this</span>.subs, sub)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  depend () &#123;</div><div class="line">    <span class="keyword">if</span> (Dep.target) &#123;</div><div class="line">      Dep.target.addDep(<span class="keyword">this</span>)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  notify () &#123;</div><div class="line">    <span class="comment">// stabilize the subscriber list first</span></div><div class="line">    <span class="keyword">const</span> subs = <span class="keyword">this</span>.subs.slice()</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, l = subs.length; i &lt; l; i++) &#123;</div><div class="line">      subs[i].update()</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// the current target watcher being evaluated.</span></div><div class="line"><span class="comment">// this is globally unique because there could be only one</span></div><div class="line"><span class="comment">// watcher being evaluated at any time.</span></div><div class="line">Dep.target = <span class="literal">null</span></div><div class="line"><span class="keyword">const</span> targetStack = []</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">pushTarget</span> (<span class="params">_target: Watcher</span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (Dep.target) targetStack.push(Dep.target)</div><div class="line">  Dep.target = _target</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">popTarget</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  Dep.target = targetStack.pop()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>notify 方法就是在执行后续的改变了，他向订阅者发布消息，从而驱动视图更新</p>
+<p>这样 可以得出：getter方法中的dep.depend()是在添加监听，setter方法中的dep.notify就是在更新视图了</p>
+<p><em>存疑：Dep.target 的作用是什么呢，为什么判断完他的值之后把null赋值给他了呢</em></p>
+<p>订阅者则是 watcher —— /core/observer/watcher.js（简化后的代码)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Watcher</span> </span>&#123;</div><div class="line">	<span class="keyword">this</span>.getter = expOrFn</div><div class="line"></div><div class="line">	get () &#123;</div><div class="line">		pushTarget(<span class="keyword">this</span>)</div><div class="line">		value = <span class="keyword">this</span>.getter.call(vm, vm)</div><div class="line">		popTarget()</div><div class="line">		<span class="keyword">this</span>.cleanupDeps()</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Dep相当于一个中转，去添加和删除“依赖”，在Watcher中，首先调用getter去添加依赖，在数据发生改变时，就会自动的调用回调函数。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>根据以上的分析，可以根据以下的表格来理解(按照时序)</p>
+<p><img src="/2018/03/27/vue-sourcecode/vue3.jpg" alt=""></p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="https://github.com/ZhangXinmiao">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#项目结构"><span class="toc-number">1.</span> <span class="toc-text">项目结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Vue-构造函数"><span class="toc-number">2.</span> <span class="toc-text">Vue 构造函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#从-package-json-入手"><span class="toc-number">2.1.</span> <span class="toc-text">从 package.json 入手</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#按部就班的查找线索"><span class="toc-number">2.2.</span> <span class="toc-text">按部就班的查找线索</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#响应式原理"><span class="toc-number">3.</span> <span class="toc-text">响应式原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-number">3.1.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://zhangxinmiao.com/2018/03/27/vue-sourcecode/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://zhangxinmiao.com/2018/03/27/vue-sourcecode/&text=Vue 源码学习"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://zhangxinmiao.com/2018/03/27/vue-sourcecode/&title=Vue 源码学习"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://zhangxinmiao.com/2018/03/27/vue-sourcecode/&is_video=false&description=Vue 源码学习"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Vue 源码学习&body=Check out this article: http://zhangxinmiao.com/2018/03/27/vue-sourcecode/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://zhangxinmiao.com/2018/03/27/vue-sourcecode/&title=Vue 源码学习"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://zhangxinmiao.com/2018/03/27/vue-sourcecode/&title=Vue 源码学习"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://zhangxinmiao.com/2018/03/27/vue-sourcecode/&title=Vue 源码学习"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://zhangxinmiao.com/2018/03/27/vue-sourcecode/&title=Vue 源码学习"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://zhangxinmiao.com/2018/03/27/vue-sourcecode/&name=Vue 源码学习&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick='$("#toc-footer").toggle();return false;'><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick='$("#share-footer").toggle();return false;'><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 张鑫淼
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="https://github.com/ZhangXinmiao">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?6758d90e17524a26c9e187195678a132";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    <script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
